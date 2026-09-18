@@ -3,1381 +3,1052 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>🔗 My Links Dashboard</title>
 
 <style>
-/* =========================================================
-   GLOBAL
-========================================================= */
-
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0f1117;
+  --surface: #151821;
+  --surface-2: #1c202b;
+  --surface-3: #202532;
+  --border: #292e3a;
+  --text: #ffffff;
+  --text-secondary: #aeb4c0;
+  --text-muted: #777f8f;
+  --input-bg: #11141c;
+  --card-bg: #151821;
+  --hover: #202532;
+  --shadow: rgba(0, 0, 0, 0.25);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.12);
+  --primary: rgb(124, 92, 255);
+  --primary-hover: rgb(108, 76, 235);
+}
+
+body.light {
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --surface-2: #f0f1f5;
+  --surface-3: #e7e9ef;
+  --border: #dfe2e8;
+  --text: #171923;
+  --text-secondary: #626a78;
+  --text-muted: #8a919f;
+  --input-bg: #ffffff;
+  --card-bg: #ffffff;
+  --hover: #eef0f5;
+  --shadow: rgba(0, 0, 0, 0.08);
+  --danger: #dc2626;
+  --danger-bg: rgba(220, 38, 38, 0.08);
+  --primary: rgb(124, 92, 255);
+  --primary-hover: rgb(108, 76, 235);
 }
 
 html,
 body {
-    width: 100%;
-    min-height: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #0f1117;
-    color: #ffffff;
+  width: 100%;
+  min-height: 100%;
 }
 
 body {
-    overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
-button,
-input,
-select {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-/* Hide scrollbar but keep scrolling */
+/* Hide scrollbars but keep scrolling */
 * {
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
 }
 
 *::-webkit-scrollbar {
-  display: none; /* Chrome, Edge, Safari */
+  display: none;
 }
 
-/* =========================================================
+/* =========================
    APP
-========================================================= */
+========================= */
 
 .app {
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
 }
 
-
-/* =========================================================
-   SIDEBAR - DESKTOP
-========================================================= */
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar {
-    width: 230px;
-    min-width: 230px;
-    min-height: 100vh;
+  width: 230px;
+  min-width: 230px;
+  min-height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 20px 14px;
 
-    background: #151821;
-    border-right: 1px solid #292e3a;
+  display: flex;
+  flex-direction: column;
 
-    padding: 20px 14px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-
-    position: sticky;
-    top: 0;
-
-    height: 100vh;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .logo {
-    font-size: 21px;
-    font-weight: 700;
-    margin-bottom: 25px;
-    padding: 0 10px;
+  font-size: 21px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  padding: 0 10px;
 }
 
 .category-list {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .category-btn {
-    width: 100%;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
 
-    border: 0;
-    background: transparent;
+  padding: 11px 12px;
+  border-radius: 9px;
 
-    color: #aeb4c0;
+  text-align: left;
+  font-size: 14px;
 
-    padding: 11px 12px;
+  cursor: pointer;
 
-    border-radius: 9px;
-
-    text-align: left;
-
-    font-size: 14px;
-
-    transition: 0.2s;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .category-btn:hover {
-    background: #202532;
-    color: #ffffff;
+  background: var(--hover);
+  color: var(--text);
 }
 
 .category-btn.active {
-    background: rgb(124, 92, 255);
-    color: #ffffff;
-    font-weight: 600;
+  background: rgb(124, 92, 255);
+  color: #fff;
+  font-weight: 600;
 }
 
-.category-count {
-    float: right;
-    opacity: 0.7;
-    font-size: 12px;
-}
-
-
-/* =========================================================
+/* =========================
    MAIN
-========================================================= */
+========================= */
 
 .main {
-    flex: 1;
-    min-width: 0;
-
-    min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  min-width: 0;
 }
 
-
-/* =========================================================
+/* =========================
    HEADER
-========================================================= */
+========================= */
 
 .header {
-    min-height: 70px;
+  min-height: 70px;
 
-    border-bottom: 1px solid #292e3a;
+  display: flex;
+  align-items: center;
+  gap: 9px;
 
-    display: flex;
-    align-items: center;
+  padding: 14px 20px;
 
-    gap: 10px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
 
-    padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 
-    background: #11141c;
-
-    position: sticky;
-    top: 0;
-
-    z-index: 50;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .search-box {
-    flex: 1;
-    min-width: 100px;
+  flex: 1;
+  min-width: 180px;
 }
 
 .search-box input {
-    width: 100%;
-    height: 42px;
+  width: 100%;
+  height: 40px;
 
-    border: 1px solid #303644;
+  border: 1px solid var(--border);
+  border-radius: 8px;
 
-    background: #1a1e28;
+  padding: 0 13px;
 
-    color: #ffffff;
+  background: var(--input-bg);
+  color: var(--text);
 
-    border-radius: 9px;
+  outline: none;
+  font-size: 14px;
 
-    padding: 0 14px;
-
-    outline: none;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
 .search-box input:focus {
-    border-color: rgb(124, 92, 255);
+  border-color: var(--primary);
 }
 
+.search-box input::placeholder {
+  color: var(--text-muted);
+}
 
 .header-btn {
-    height: 42px;
+  height: 40px;
 
-    padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
 
-    border: 1px solid #303644;
+  padding: 0 13px;
 
-    border-radius: 9px;
+  background: var(--surface-2);
+  color: var(--text-secondary);
 
-    background: #1a1e28;
+  cursor: pointer;
+  white-space: nowrap;
 
-    color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
 
-    transition: 0.2s;
-
-    white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .header-btn:hover {
-    background: #252b38;
+  background: var(--hover);
+  color: var(--text);
 }
 
 .header-btn.primary {
-    background: rgb(124, 92, 255);
-    border-color: rgb(124, 92, 255);
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
 }
 
 .header-btn.primary:hover {
-    background: rgb(105, 76, 225);
+  background: var(--primary-hover);
+}
+
+.header-btn.danger {
+  color: var(--danger);
 }
 
 .header-btn.danger:hover {
-    background: #49252b;
-    border-color: #70323b;
+  background: var(--danger-bg);
 }
 
-
-/* =========================================================
+/* =========================
    CONTENT
-========================================================= */
+========================= */
 
 .content {
-    padding: 20px;
-
-    width: 100%;
+  padding: 25px 20px 40px;
 }
 
 .content-top {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 .content-title {
-    font-size: 20px;
-    font-weight: 700;
+  font-size: 22px;
+  font-weight: 700;
 }
 
 .link-count {
-    color: #8f96a3;
-    font-size: 13px;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 5px;
 }
 
-
-/* =========================================================
+/* =========================
    GRID
-========================================================= */
+========================= */
 
 .links-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fill,
-            minmax(230px, 1fr)
-        );
-
-    gap: 14px;
-
-    align-items: start;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
 }
 
-
-/* =========================================================
+/* =========================
    CARD
-========================================================= */
+========================= */
 
-.card {
-    position: relative;
+.link-card {
+  position: relative;
 
-    background: #191d26;
+  min-height: 135px;
 
-    border: 1px solid #2a303c;
+  padding: 18px;
 
-    border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
 
-    padding: 16px;
+  cursor: pointer;
 
-    min-height: 125px;
-
-    transition: 0.2s;
-
-    overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.2s ease;
 }
 
-.card:hover {
-    border-color: #464e5e;
-
-    transform: translateY(-1px);
+.link-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: 0 8px 25px var(--shadow);
 }
 
-.card-link {
-    display: block;
-
-    text-decoration: none;
-
-    color: inherit;
-
-    height: 100%;
+.link-card-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
 }
 
-.card-icon {
-    width: 42px;
-    height: 42px;
+.link-card-title {
+  padding-right: 60px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
 
-    background: #252a35;
+  line-height: 1.4;
 
-    border-radius: 10px;
-
-    font-size: 21px;
-
-    margin-bottom: 12px;
+  word-break: break-word;
 }
 
-.card-title {
-    font-size: 15px;
+.link-card-type {
+  display: inline-block;
 
-    font-weight: 600;
+  margin-top: 9px;
 
-    margin-bottom: 8px;
+  padding: 4px 8px;
 
-    padding-right: 35px;
+  background: var(--surface-2);
+  color: var(--text-secondary);
 
-    white-space: nowrap;
+  border: 1px solid var(--border);
+  border-radius: 5px;
 
-    overflow: hidden;
-
-    text-overflow: ellipsis;
+  font-size: 10px;
+  font-weight: 600;
 }
 
-.type-badge {
-    display: inline-block;
+.link-card-category {
+  margin-top: 8px;
 
-    font-size: 11px;
+  color: var(--text-muted);
 
-    color: #aeb4c0;
-
-    background: #232833;
-
-    padding: 4px 7px;
-
-    border-radius: 5px;
+  font-size: 11px;
 }
+
+/* =========================
+   CARD ACTIONS
+========================= */
 
 .card-actions {
-    position: absolute;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 
-    right: 9px;
-    top: 9px;
+  display: flex;
+  gap: 5px;
 
-    display: flex;
+  opacity: 0;
 
-    gap: 4px;
-
-    opacity: 0;
-
-    transition: 0.2s;
+  transition: opacity 0.2s ease;
 }
 
-.card:hover .card-actions {
-    opacity: 1;
+.link-card:hover .card-actions {
+  opacity: 1;
 }
 
-.action-btn {
-    width: 28px;
-    height: 28px;
+.card-action {
+  width: 29px;
+  height: 29px;
 
-    border: 1px solid #353b49;
+  border: 1px solid var(--border);
+  border-radius: 6px;
 
-    border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text-secondary);
 
-    background: #202530;
+  cursor: pointer;
 
-    color: #ffffff;
-
-    font-size: 13px;
+  font-size: 12px;
 }
 
-.action-btn:hover {
-    background: #303746;
+.card-action:hover {
+  background: var(--hover);
+  color: var(--text);
 }
 
-.action-btn.delete:hover {
-    background: #572b32;
-    border-color: #743942;
+.card-action.delete:hover {
+  color: var(--danger);
+  background: var(--danger-bg);
 }
 
-
-/* =========================================================
+/* =========================
    EMPTY STATE
-========================================================= */
+========================= */
 
 .empty-state {
-    grid-column: 1 / -1;
+  grid-column: 1 / -1;
 
-    min-height: 250px;
+  padding: 70px 20px;
 
-    display: flex;
+  text-align: center;
 
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    color: #8f96a3;
-
-    border: 1px dashed #303644;
-
-    border-radius: 12px;
-
-    background: #151821;
-}
-
-.empty-state-inner {
-    max-width: 420px;
-
-    padding: 30px;
+  color: var(--text-muted);
 }
 
 .empty-icon {
-    font-size: 45px;
-
-    margin-bottom: 12px;
+  font-size: 45px;
+  margin-bottom: 15px;
 }
 
 .empty-title {
-    color: #ffffff;
-
-    font-size: 18px;
-
-    font-weight: 600;
-
-    margin-bottom: 8px;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 7px;
 }
 
 .empty-text {
-    font-size: 13px;
-
-    line-height: 1.6;
+  font-size: 13px;
 }
 
-
-/* =========================================================
+/* =========================
    MODAL
-========================================================= */
+========================= */
 
 .modal-overlay {
-    position: fixed;
+  position: fixed;
+  inset: 0;
 
-    inset: 0;
+  background: rgba(0, 0, 0, 0.55);
 
-    background: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
 
-    display: none;
+  padding: 20px;
 
-    align-items: center;
-    justify-content: center;
-
-    z-index: 1000;
-
-    padding: 20px;
-
-    overflow-y: auto;
+  z-index: 200;
 }
 
 .modal-overlay.show {
-    display: flex;
+  display: flex;
 }
 
 .modal {
-    width: 100%;
+  width: 100%;
+  max-width: 500px;
 
-    max-width: 520px;
+  background: var(--surface);
 
-    background: #191d26;
+  border: 1px solid var(--border);
+  border-radius: 13px;
 
-    border: 1px solid #303644;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 
-    border-radius: 14px;
+  overflow: hidden;
 
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.5);
-
-    overflow: hidden;
-
-    margin: auto;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .modal-header {
-    padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    border-bottom: 1px solid #2b303c;
+  padding: 18px 20px;
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
+  border-bottom: 1px solid var(--border);
 }
 
 .modal-title {
-    font-size: 18px;
-
-    font-weight: 700;
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .close-btn {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 
-    border: 0;
+  border: 0;
+  border-radius: 7px;
 
-    background: transparent;
+  background: transparent;
+  color: var(--text-secondary);
 
-    color: #aeb4c0;
+  cursor: pointer;
 
-    font-size: 22px;
-
-    border-radius: 6px;
+  font-size: 22px;
+  line-height: 1;
 }
 
 .close-btn:hover {
-    background: #252a35;
-
-    color: #ffffff;
+  background: var(--hover);
+  color: var(--text);
 }
 
 .modal-body {
-    padding: 20px;
+  padding: 20px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 17px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
 }
 
 .form-group label {
-    display: block;
+  display: block;
 
-    margin-bottom: 7px;
+  margin-bottom: 7px;
 
-    color: #c4c9d2;
+  color: var(--text-secondary);
 
-    font-size: 13px;
-
-    font-weight: 600;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .form-group input,
 .form-group select {
-    width: 100%;
+  width: 100%;
+  height: 40px;
 
-    height: 42px;
+  padding: 0 11px;
 
-    border: 1px solid #343a48;
+  border: 1px solid var(--border);
+  border-radius: 7px;
 
-    background: #12151c;
+  background: var(--input-bg);
+  color: var(--text);
 
-    color: #ffffff;
+  outline: none;
 
-    border-radius: 8px;
-
-    padding: 0 12px;
-
-    outline: none;
+  font-size: 13px;
 }
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: rgb(124, 92, 255);
+  border-color: var(--primary);
 }
 
 .form-help {
-    color: #7f8795;
+  margin-top: 6px;
 
-    font-size: 11px;
+  color: var(--text-muted);
 
-    margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.4;
 }
 
 .modal-footer {
-    padding: 15px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 
-    border-top: 1px solid #2b303c;
+  padding: 15px 20px;
 
-    display: flex;
-
-    justify-content: flex-end;
-
-    gap: 8px;
+  border-top: 1px solid var(--border);
 }
 
 .cancel-btn,
 .save-btn {
-    height: 40px;
+  height: 38px;
 
-    padding: 0 16px;
+  padding: 0 15px;
 
-    border-radius: 8px;
+  border-radius: 7px;
 
-    border: 1px solid #343a48;
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .cancel-btn {
-    background: #202530;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-secondary);
+}
 
-    color: #ffffff;
+.cancel-btn:hover {
+  background: var(--hover);
+  color: var(--text);
 }
 
 .save-btn {
-    background: rgb(124, 92, 255);
-
-    border-color: rgb(124, 92, 255);
-
-    color: #ffffff;
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: #fff;
 }
 
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .sidebar {
-        width: 190px;
-        min-width: 190px;
-    }
-
-    .links-grid {
-        grid-template-columns:
-            repeat(
-                auto-fill,
-                minmax(200px, 1fr)
-            );
-    }
-
+.save-btn:hover {
+  background: var(--primary-hover);
 }
 
-
-/* =========================================================
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media (max-width: 650px) {
 
-    body {
-        overflow-x: hidden;
-    }
+  .app {
+    display: block;
+    width: 100%;
+  }
 
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    min-height: auto;
+    height: auto;
 
-    .app {
-        display: block;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 
-        width: 100%;
-    }
+    padding: 10px 10px 8px;
 
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
 
-    /* ---------------------------------
-       Mobile Category Bar
-    --------------------------------- */
+  .logo {
+    font-size: 18px;
+    margin-bottom: 9px;
+    padding: 0 5px;
+  }
 
-    .sidebar {
+  .category-list {
+    display: flex;
+    flex-direction: row;
 
-        width: 100%;
+    gap: 7px;
 
-        min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
 
-        min-height: auto;
+    padding-bottom: 3px;
+  }
 
-        height: auto;
+  .category-btn {
+    flex: 0 0 auto;
 
-        position: sticky;
+    width: auto;
 
-        top: 0;
+    white-space: nowrap;
 
-        z-index: 100;
+    padding: 8px 11px;
 
-        padding: 10px 10px 8px;
+    font-size: 12px;
 
-        border-right: 0;
+    border-radius: 8px;
+  }
 
-        border-bottom: 1px solid #292e3a;
+  .header {
+    min-height: auto;
 
-    }
+    padding: 10px;
 
+    gap: 7px;
 
-    .logo {
+    flex-wrap: wrap;
 
-        font-size: 18px;
+    position: sticky;
+    top: 72px;
+    z-index: 90;
+  }
 
-        margin-bottom: 9px;
+  .search-box {
+    flex: 1 1 100%;
+    order: 1;
+  }
 
-        padding: 0 4px;
+  .header-btn {
+    flex: 1;
+    min-width: 0;
 
-    }
+    height: 38px;
 
+    padding: 0 7px;
 
-    .category-list {
+    font-size: 11px;
+  }
 
-        display: flex;
+  .content {
+    padding: 17px 10px 30px;
+  }
 
-        flex-direction: row;
+  .content-title {
+    font-size: 19px;
+  }
 
-        gap: 7px;
+  .links-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 
-        overflow-x: auto;
+  .link-card {
+    min-height: 120px;
+  }
 
-        overflow-y: hidden;
+  .card-actions {
+    opacity: 1;
 
-        padding-bottom: 3px;
+    right: 8px;
+    top: 8px;
+  }
 
-        scrollbar-width: thin;
+  .modal-overlay {
+    padding: 10px;
 
-    }
+    align-items: flex-start;
+  }
 
+  .modal {
+    margin-top: 20px;
 
-    .category-btn {
+    max-height: calc(100vh - 40px);
 
-        flex: 0 0 auto;
+    overflow-y: auto;
+  }
 
-        width: auto;
+  .modal-body {
+    padding: 16px;
+  }
 
-        white-space: nowrap;
-
-        padding: 8px 11px;
-
-        font-size: 12px;
-
-        border-radius: 8px;
-
-    }
-
-
-    .category-count {
-
-        float: none;
-
-        margin-left: 4px;
-
-    }
-
-
-    /* ---------------------------------
-       Mobile Main
-    --------------------------------- */
-
-    .main {
-
-        min-height: auto;
-
-        width: 100%;
-
-    }
-
-
-    /* ---------------------------------
-       Mobile Header
-    --------------------------------- */
-
-    .header {
-
-        min-height: auto;
-
-        padding: 10px;
-
-        gap: 7px;
-
-        flex-wrap: wrap;
-
-        position: sticky;
-
-        top: 78px;
-
-        z-index: 90;
-
-    }
-
-
-    .search-box {
-
-        flex: 1 1 100%;
-
-        order: 1;
-
-    }
-
-
-    .search-box input {
-
-        height: 40px;
-
-    }
-
-
-    .header-btn {
-
-        flex: 1;
-
-        min-width: 0;
-
-        height: 38px;
-
-        padding: 0 8px;
-
-        font-size: 12px;
-
-    }
-
-
-    /* ---------------------------------
-       Mobile Content
-    --------------------------------- */
-
-    .content {
-
-        padding: 14px 10px 25px;
-
-    }
-
-
-    .content-top {
-
-        margin-bottom: 12px;
-
-    }
-
-
-    .content-title {
-
-        font-size: 18px;
-
-    }
-
-
-    .link-count {
-
-        font-size: 12px;
-
-    }
-
-
-    /* ---------------------------------
-       Mobile Grid
-    --------------------------------- */
-
-    .links-grid {
-
-        grid-template-columns: 1fr;
-
-        gap: 10px;
-
-    }
-
-
-    /* ---------------------------------
-       Mobile Cards
-    --------------------------------- */
-
-    .card {
-
-        min-height: 105px;
-
-        padding: 13px;
-
-    }
-
-
-    .card-icon {
-
-        width: 38px;
-
-        height: 38px;
-
-        font-size: 19px;
-
-        margin-bottom: 9px;
-
-    }
-
-
-    .card-title {
-
-        font-size: 14px;
-
-    }
-
-
-    /*
-        On mobile there is no hover.
-        Always show Edit/Delete buttons.
-    */
-
-    .card-actions {
-
-        opacity: 1;
-
-        right: 8px;
-
-        top: 8px;
-
-    }
-
-
-    .action-btn {
-
-        width: 30px;
-
-        height: 30px;
-
-    }
-
-
-    /* ---------------------------------
-       Mobile Empty State
-    --------------------------------- */
-
-    .empty-state {
-
-        min-height: 220px;
-
-    }
-
-
-    /* ---------------------------------
-       Mobile Modal
-    --------------------------------- */
-
-    .modal-overlay {
-
-        padding: 10px;
-
-        align-items: flex-start;
-
-    }
-
-
-    .modal {
-
-        margin-top: 20px;
-
-        max-height: calc(100vh - 40px);
-
-        overflow-y: auto;
-
-    }
-
-
-    .modal-body {
-
-        padding: 15px;
-
-    }
-
-
-    .modal-footer {
-
-        padding: 12px 15px;
-
-        position: sticky;
-
-        bottom: 0;
-
-        background: #191d26;
-
-    }
-
+  .modal-footer {
+    padding: 13px 16px;
+  }
 }
 
-
-/* =========================================================
+/* =========================
    VERY SMALL MOBILE
-========================================================= */
+========================= */
 
-@media (max-width: 400px) {
+@media (max-width: 380px) {
 
-    .header-btn {
+  .header-btn {
+    font-size: 10px;
+    padding: 0 5px;
+  }
 
-        font-size: 11px;
-
-    }
-
-
-    .category-btn {
-
-        font-size: 11px;
-
-        padding: 7px 9px;
-
-    }
-
-
-    .content {
-
-        padding-left: 8px;
-
-        padding-right: 8px;
-
-    }
-
+  .link-card {
+    padding: 15px;
+  }
 }
 </style>
 </head>
-
 
 <body>
 
 <div class="app">
 
+  <!-- SIDEBAR / CATEGORY BAR -->
+  <aside class="sidebar">
 
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
+    <div class="logo">🔗 My Links</div>
 
-    <aside class="sidebar">
+    <div class="category-list" id="categoryList"></div>
 
-        <div class="logo">
-            🔗 My Links
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HEADER -->
+    <header class="header">
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search links..."
+          autocomplete="off"
+        >
+      </div>
+
+      <button class="header-btn primary" id="addBtn">
+        ＋ Add
+      </button>
+
+      <button class="header-btn" id="themeBtn">
+        ☀️ Light
+      </button>
+
+      <button class="header-btn" id="exportBtn">
+        ⬇ Export
+      </button>
+
+      <button class="header-btn" id="importBtn">
+        ⬆ Import
+      </button>
+
+      <button class="header-btn danger" id="resetBtn">
+        ↻ Reset
+      </button>
+
+      <input
+        type="file"
+        id="importFile"
+        accept=".json,application/json"
+        hidden
+      >
+
+    </header>
+
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <div class="content-top">
+
+        <div>
+          <div class="content-title" id="contentTitle">
+            All Links
+          </div>
+
+          <div class="link-count" id="linkCount">
+            0 links
+          </div>
         </div>
 
-
-        <div
-            class="category-list"
-            id="categoryList"
-        ></div>
-
-    </aside>
+      </div>
 
 
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
+      <div class="links-grid" id="linksGrid"></div>
 
-    <main class="main">
+    </section>
 
-
-        <!-- HEADER -->
-
-        <header class="header">
-
-
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search links..."
-                    autocomplete="off"
-                >
-
-            </div>
-
-
-            <button
-                class="header-btn primary"
-                id="addBtn"
-                title="Add Link"
-            >
-                ＋ Add
-            </button>
-
-
-            <button
-                class="header-btn"
-                id="exportBtn"
-                title="Export"
-            >
-                ⬇ Export
-            </button>
-
-
-            <button
-                class="header-btn"
-                id="importBtn"
-                title="Import"
-            >
-                ⬆ Import
-            </button>
-
-
-            <button
-                class="header-btn danger"
-                id="resetBtn"
-                title="Reset"
-            >
-                ↻ Reset
-            </button>
-
-
-            <input
-                type="file"
-                id="importFile"
-                accept=".json,application/json"
-                hidden
-            >
-
-        </header>
-
-
-        <!-- CONTENT -->
-
-        <section class="content">
-
-
-            <div class="content-top">
-
-                <div>
-
-                    <div
-                        class="content-title"
-                        id="contentTitle"
-                    >
-                        All Links
-                    </div>
-
-
-                    <div
-                        class="link-count"
-                        id="linkCount"
-                    >
-                        0 links
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div
-                class="links-grid"
-                id="linksGrid"
-            ></div>
-
-
-        </section>
-
-    </main>
+  </main>
 
 </div>
 
 
-<!-- =========================================================
-     MODAL
-========================================================= -->
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
 
-<div
-    class="modal-overlay"
-    id="modalOverlay"
->
+  <div class="modal">
 
+    <div class="modal-header">
 
-    <div class="modal">
+      <div class="modal-title" id="modalTitle">
+        Add Link
+      </div>
 
-
-        <div class="modal-header">
-
-            <div
-                class="modal-title"
-                id="modalTitle"
-            >
-                Add Link
-            </div>
-
-
-            <button
-                class="close-btn"
-                id="closeModalBtn"
-                title="Close"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <div class="modal-body">
-
-
-            <form id="linkForm">
-
-
-                <div class="form-group">
-
-                    <label for="titleInput">
-                        Title
-                    </label>
-
-
-                    <input
-                        type="text"
-                        id="titleInput"
-                        placeholder="Example: Wedding Outfit Ideas"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="urlInput">
-                        URL
-                    </label>
-
-
-                    <input
-                        type="url"
-                        id="urlInput"
-                        placeholder="https://..."
-                        required
-                    >
-
-
-                    <div class="form-help">
-                        Link type, category and emoji are detected automatically.
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="typeInput">
-                        Link Type
-                    </label>
-
-
-                    <select id="typeInput">
-
-                        <option value="instagram">
-                            📸 Instagram Reel
-                        </option>
-
-                        <option value="youtube-short">
-                            ▶️ YouTube Short
-                        </option>
-
-                        <option value="gmap">
-                            📍 GMap Link
-                        </option>
-
-                        <option value="google-drive">
-                            📁 Google Drive
-                        </option>
-
-                        <option value="youtube-playlist">
-                            ▶️ YouTube Playlist
-                        </option>
-
-                        <option value="myntra">
-                            🛍️ Myntra
-                        </option>
-
-                        <option value="website">
-                            🌐 Website
-                        </option>
-
-                        <option value="other">
-                            🔗 Other
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="categoryInput">
-                        Category
-                    </label>
-
-
-                    <select id="categoryInput">
-
-                        <option value="Social">
-                            📱 Social
-                        </option>
-
-                        <option value="Streaming">
-                            🎬 Streaming
-                        </option>
-
-                        <option value="Personality">
-                            👤 Personality
-                        </option>
-
-                        <option value="Weddings">
-                            💍 Weddings
-                        </option>
-
-                        <option value="Watches">
-                            ⌚ Watches
-                        </option>
-
-                        <option value="Outing">
-                            🗺️ Outing
-                        </option>
-
-                        <option value="Learning">
-                            📚 Learning
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="iconInput">
-                        Icon / Emoji
-                    </label>
-
-
-                    <input
-                        type="text"
-                        id="iconInput"
-                        maxlength="5"
-                        placeholder="🔗"
-                    >
-
-                </div>
-
-
-            </form>
-
-        </div>
-
-
-        <div class="modal-footer">
-
-            <button
-                class="cancel-btn"
-                id="cancelModalBtn"
-                type="button"
-            >
-                Cancel
-            </button>
-
-
-            <button
-                class="save-btn"
-                id="saveBtn"
-                type="submit"
-                form="linkForm"
-            >
-                Save Link
-            </button>
-
-        </div>
-
+      <button class="close-btn" id="closeModalBtn">
+        ×
+      </button>
 
     </div>
+
+
+    <div class="modal-body">
+
+      <form id="linkForm">
+
+        <div class="form-group">
+
+          <label for="titleInput">
+            Title
+          </label>
+
+          <input
+            type="text"
+            id="titleInput"
+            placeholder="Example: Wedding Outfit Ideas"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="urlInput">
+            URL
+          </label>
+
+          <input
+            type="url"
+            id="urlInput"
+            placeholder="https://..."
+            required
+          >
+
+          <div class="form-help">
+            Link type, category and emoji are detected automatically.
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="typeInput">
+            Link Type
+          </label>
+
+          <select id="typeInput">
+
+            <option value="instagram">
+              📸 Instagram Reel
+            </option>
+
+            <option value="youtube-short">
+              ▶️ YouTube Short
+            </option>
+
+            <option value="gmap">
+              📍 GMap Link
+            </option>
+
+            <option value="google-drive">
+              📁 Google Drive
+            </option>
+
+            <option value="youtube-playlist">
+              ▶️ YouTube Playlist
+            </option>
+
+            <option value="myntra">
+              🛍️ Myntra
+            </option>
+
+            <option value="website">
+              🌐 Website
+            </option>
+
+            <option value="other">
+              🔗 Other
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="categoryInput">
+            Category
+          </label>
+
+          <select id="categoryInput">
+
+            <option value="Social">
+              📱 Social
+            </option>
+
+            <option value="Streaming">
+              🎬 Streaming
+            </option>
+
+            <option value="Personality">
+              👤 Personality
+            </option>
+
+            <option value="Weddings">
+              💍 Weddings
+            </option>
+
+            <option value="Watches">
+              ⌚ Watches
+            </option>
+
+            <option value="Outing">
+              🗺️ Outing
+            </option>
+
+            <option value="Learning">
+              📚 Learning
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="iconInput">
+            Icon / Emoji
+          </label>
+
+          <input
+            type="text"
+            id="iconInput"
+            maxlength="5"
+            placeholder="🔗"
+          >
+
+        </div>
+
+      </form>
+
+    </div>
+
+
+    <div class="modal-footer">
+
+      <button
+        class="cancel-btn"
+        id="cancelModalBtn"
+        type="button"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="save-btn"
+        id="saveBtn"
+        type="submit"
+        form="linkForm"
+      >
+        Save Link
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
@@ -1385,11 +1056,11 @@ button {
 <script>
 
 /* =========================================================
-   CONFIGURATION
+   CONFIG
 ========================================================= */
 
-const STORAGE_KEY =
-    "myLinksDashboardData";
+const STORAGE_KEY = "myLinksDashboardData";
+const THEME_KEY = "myLinksDashboardTheme";
 
 
 /* =========================================================
@@ -1398,45 +1069,45 @@ const STORAGE_KEY =
 
 const categories = [
 
-    {
-        name: "All",
-        icon: "🏠"
-    },
+  {
+    name: "All",
+    icon: "🏠"
+  },
 
-    {
-        name: "Social",
-        icon: "📱"
-    },
+  {
+    name: "Social",
+    icon: "📱"
+  },
 
-    {
-        name: "Streaming",
-        icon: "🎬"
-    },
+  {
+    name: "Streaming",
+    icon: "🎬"
+  },
 
-    {
-        name: "Personality",
-        icon: "👤"
-    },
+  {
+    name: "Personality",
+    icon: "👤"
+  },
 
-    {
-        name: "Weddings",
-        icon: "💍"
-    },
+  {
+    name: "Weddings",
+    icon: "💍"
+  },
 
-    {
-        name: "Watches",
-        icon: "⌚"
-    },
+  {
+    name: "Watches",
+    icon: "⌚"
+  },
 
-    {
-        name: "Outing",
-        icon: "🗺️"
-    },
+  {
+    name: "Outing",
+    icon: "🗺️"
+  },
 
-    {
-        name: "Learning",
-        icon: "📚"
-    }
+  {
+    name: "Learning",
+    icon: "📚"
+  }
 
 ];
 
@@ -1447,35 +1118,28 @@ const categories = [
 
 const typeLabels = {
 
-    instagram:
-        "📸 Instagram Reel",
+  instagram: "📸 Instagram Reel",
 
-    "youtube-short":
-        "▶️ YouTube Short",
+  "youtube-short": "▶️ YouTube Short",
 
-    gmap:
-        "📍 GMap Link",
+  gmap: "📍 GMap Link",
 
-    "google-drive":
-        "📁 Google Drive",
+  "google-drive": "📁 Google Drive",
 
-    "youtube-playlist":
-        "▶️ YouTube Playlist",
+  "youtube-playlist": "▶️ YouTube Playlist",
 
-    myntra:
-        "🛍️ Myntra",
+  myntra: "🛍️ Myntra",
 
-    website:
-        "🌐 Website",
+  website: "🌐 Website",
 
-    other:
-        "🔗 Other"
+  other: "🔗 Other"
 
 };
 
 
 /* =========================================================
-   PUBLIC DEFAULT DATA
+   DEFAULT LINKS
+   Keep this EMPTY for public GitHub version.
 ========================================================= */
 
 const defaultLinks = [];
@@ -1493,211 +1157,100 @@ let editingId = null;
 
 
 /* =========================================================
-   DOM
+   ELEMENTS
 ========================================================= */
 
 const categoryList =
-    document.getElementById(
-        "categoryList"
-    );
+  document.getElementById("categoryList");
 
 const linksGrid =
-    document.getElementById(
-        "linksGrid"
-    );
+  document.getElementById("linksGrid");
 
 const contentTitle =
-    document.getElementById(
-        "contentTitle"
-    );
+  document.getElementById("contentTitle");
 
 const linkCount =
-    document.getElementById(
-        "linkCount"
-    );
+  document.getElementById("linkCount");
 
 const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
+  document.getElementById("searchInput");
 
 const addBtn =
-    document.getElementById(
-        "addBtn"
-    );
+  document.getElementById("addBtn");
+
+const themeBtn =
+  document.getElementById("themeBtn");
 
 const exportBtn =
-    document.getElementById(
-        "exportBtn"
-    );
+  document.getElementById("exportBtn");
 
 const importBtn =
-    document.getElementById(
-        "importBtn"
-    );
+  document.getElementById("importBtn");
 
 const resetBtn =
-    document.getElementById(
-        "resetBtn"
-    );
+  document.getElementById("resetBtn");
 
 const importFile =
-    document.getElementById(
-        "importFile"
-    );
+  document.getElementById("importFile");
 
 const modalOverlay =
-    document.getElementById(
-        "modalOverlay"
-    );
+  document.getElementById("modalOverlay");
 
 const modalTitle =
-    document.getElementById(
-        "modalTitle"
-    );
+  document.getElementById("modalTitle");
 
 const closeModalBtn =
-    document.getElementById(
-        "closeModalBtn"
-    );
+  document.getElementById("closeModalBtn");
 
 const cancelModalBtn =
-    document.getElementById(
-        "cancelModalBtn"
-    );
+  document.getElementById("cancelModalBtn");
 
 const linkForm =
-    document.getElementById(
-        "linkForm"
-    );
+  document.getElementById("linkForm");
 
 const titleInput =
-    document.getElementById(
-        "titleInput"
-    );
+  document.getElementById("titleInput");
 
 const urlInput =
-    document.getElementById(
-        "urlInput"
-    );
+  document.getElementById("urlInput");
 
 const typeInput =
-    document.getElementById(
-        "typeInput"
-    );
+  document.getElementById("typeInput");
 
 const categoryInput =
-    document.getElementById(
-        "categoryInput"
-    );
+  document.getElementById("categoryInput");
 
 const iconInput =
-    document.getElementById(
-        "iconInput"
-    );
+  document.getElementById("iconInput");
 
 
 /* =========================================================
-   INITIALIZE
-========================================================= */
-
-function initialize() {
-
-    const stored =
-        localStorage.getItem(
-            STORAGE_KEY
-        );
-
-
-    if (stored) {
-
-        try {
-
-            const parsed =
-                JSON.parse(
-                    stored
-                );
-
-
-            if (
-                Array.isArray(
-                    parsed
-                )
-            ) {
-
-                links =
-                    migrateLinks(
-                        parsed
-                    );
-
-            } else {
-
-                links = [];
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Could not load saved links:",
-                error
-            );
-
-            links = [];
-
-        }
-
-    } else {
-
-        links =
-            [...defaultLinks];
-
-    }
-
-
-    saveLinks();
-
-    renderCategories();
-
-    renderLinks();
-
-}
-
-
-/* =========================================================
-   SAVE
-========================================================= */
-
-function saveLinks() {
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(
-            links
-        )
-    );
-
-}
-
-
-/* =========================================================
-   GENERATE ID
+   UTILITIES
 ========================================================= */
 
 function generateId() {
 
-    return (
+  return Date.now().toString(36) +
+    Math.random().toString(36).substring(2, 8);
 
-        Date.now()
-            .toString(36)
+}
 
-        +
 
-        Math.random()
-            .toString(36)
-            .substring(2, 8)
+function escapeHTML(value) {
 
-    );
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+  return escapeHTML(value);
 
 }
 
@@ -1708,154 +1261,67 @@ function generateId() {
 
 function detectLinkType(url) {
 
-    const value =
-        String(
-            url || ""
-        )
-        .toLowerCase()
-        .trim();
+  const value = String(url || "").toLowerCase();
+
+  if (
+    value.includes("instagram.com/reel") ||
+    value.includes("instagram.com/reels")
+  ) {
+    return "instagram";
+  }
 
 
-    if (
-
-        value.includes(
-            "instagram.com/reel"
-        )
-
-        ||
-
-        value.includes(
-            "instagram.com/reels"
-        )
-
-    ) {
-
-        return "instagram";
-
-    }
+  if (
+    value.includes("youtube.com/shorts/") ||
+    value.includes("youtu.be/shorts/")
+  ) {
+    return "youtube-short";
+  }
 
 
-    if (
-
-        value.includes(
-            "youtube.com/shorts/"
-        )
-
-        ||
-
-        value.includes(
-            "youtu.be/shorts/"
-        )
-
-    ) {
-
-        return "youtube-short";
-
-    }
+  if (
+    value.includes("maps.app.goo.gl") ||
+    value.includes("goo.gl/maps") ||
+    value.includes("google.com/maps")
+  ) {
+    return "gmap";
+  }
 
 
-    if (
-
-        value.includes(
-            "maps.app.goo.gl"
-        )
-
-        ||
-
-        value.includes(
-            "goo.gl/maps"
-        )
-
-        ||
-
-        value.includes(
-            "google.com/maps"
-        )
-
-    ) {
-
-        return "gmap";
-
-    }
+  if (
+    value.includes("drive.google.com") ||
+    value.includes("docs.google.com")
+  ) {
+    return "google-drive";
+  }
 
 
-    if (
-
-        value.includes(
-            "drive.google.com"
-        )
-
-        ||
-
-        value.includes(
-            "docs.google.com"
-        )
-
-    ) {
-
-        return "google-drive";
-
-    }
+  if (
+    value.includes("youtube.com/playlist") ||
+    (
+      value.includes("youtube.com/watch") &&
+      value.includes("list=")
+    )
+  ) {
+    return "youtube-playlist";
+  }
 
 
-    if (
-
-        value.includes(
-            "youtube.com/playlist"
-        )
-
-        ||
-
-        (
-            value.includes(
-                "youtube.com/watch"
-            )
-
-            &&
-
-            value.includes(
-                "list="
-            )
-        )
-
-    ) {
-
-        return "youtube-playlist";
-
-    }
+  if (value.includes("myntra.com")) {
+    return "myntra";
+  }
 
 
-    if (
-        value.includes(
-            "myntra.com"
-        )
-    ) {
-
-        return "myntra";
-
-    }
+  if (
+    value.startsWith("http://") ||
+    value.startsWith("https://")
+  ) {
+    return "website";
+  }
 
 
-    if (
+  return "other";
 
-        value.startsWith(
-            "http://"
-        )
-
-        ||
-
-        value.startsWith(
-            "https://"
-        )
-
-    ) {
-
-        return "website";
-
-    }
-
-
-    return "other";
 }
 
 
@@ -1863,545 +1329,314 @@ function detectLinkType(url) {
    CATEGORY DETECTION
 ========================================================= */
 
-function detectCategory(
-    title,
-    url
-) {
+function detectCategory(title, url) {
+
+  const value = (
+    String(title || "") +
+    " " +
+    String(url || "")
+  ).toLowerCase();
+
+
+  /* WEDDINGS */
+
+  const weddingKeywords = [
+
+    "wedding",
+    "weddings",
+    "marriage",
+    "married",
+    "bride",
+    "bridal",
+    "groom",
+    "grooms",
+    "shaadi",
+    "shadi",
+    "wedding card",
+    "invitation",
+    "save the date",
+    "engagement",
+    "engaged",
+    "reception",
+    "haldi",
+    "mehendi",
+    "mehndi",
+    "sangeet",
+    "dhoti",
+    "silk dhoti",
+    "wedding outfit",
+    "wedding dress",
+    "wedding clothes",
+    "jiya jale",
+    "ಹೂ ಮುಡಿಸುವ"
+
+  ];
+
+
+  if (
+    weddingKeywords.some(keyword =>
+      value.includes(keyword)
+    )
+  ) {
+    return "Weddings";
+  }
+
+
+  /* WATCHES */
+
+  const watchKeywords = [
+
+    "watch",
+    "watches",
+    "casio",
+    "sonata",
+    "titan",
+    "poze",
+    "smartwatch",
+    "smart watch",
+    "wrist",
+    "wristwatch",
+    "gun metal",
+    "chronograph",
+    "analog watch",
+    "digital watch",
+    "watch collection",
+    "watch review"
+
+  ];
+
+
+  if (
+    watchKeywords.some(keyword =>
+      value.includes(keyword)
+    )
+  ) {
+    return "Watches";
+  }
+
+
+  /* LEARNING */
+
+  const learningKeywords = [
+
+    "japanese",
+    "japan",
+    "hiragana",
+    "katakana",
+    "kana",
+    "kanji",
+    "grammar",
+    "jlpt",
+    "n5",
+    "n4",
+    "n3",
+    "n2",
+    "n1",
+
+    "german",
+    "germany",
+
+    "salesforce",
+    "lwc",
+    "lightning web component",
+    "apex",
+
+    "java",
+    "programming",
+    "coding",
+    "developer",
+    "development",
+
+    "ethical hacker",
+    "hacking",
+    "cybersecurity",
+
+    "admin",
+    "learning",
+    "course",
+    "tutorial",
+    "study",
+    "studying",
+    "certification",
+    "exam",
+    "education",
+    "lesson",
+    "class",
+    "lecture",
+    "skill",
+
+    "ssc cgl",
+    "ssc chsl"
+
+  ];
+
+
+  if (
+    learningKeywords.some(keyword =>
+      value.includes(keyword)
+    )
+  ) {
+    return "Learning";
+  }
+
+
+  /* OUTING */
+
+  const outingKeywords = [
+
+    "travel",
+    "travelling",
+    "traveling",
+    "trip",
+    "outing",
+    "vacation",
+    "holiday",
+    "place",
+    "places",
+    "tourist",
+    "tourism",
+    "hill",
+    "hills",
+    "hill station",
+    "beach",
+    "beaches",
+    "lagoon",
+    "reef",
+    "scuba",
+    "scuba diving",
+    "diving",
+    "waterfall",
+    "trek",
+    "trekking",
+    "hiking",
+    "camping",
+    "temple",
+    "temples",
+    "gudi",
+    "fort",
+    "lake",
+    "river",
+    "island",
+    "resort",
+    "mysore pak",
+    "honnavara",
+    "netrani",
+    "kailasagiri",
+    "mauritius",
+    "dudhsagar",
+    "goa",
+    "pondicherry",
+    "puducherry",
+    "coorg",
+    "kodagu",
+    "chikmagalur",
+    "wayanad",
+    "ooty",
+    "manali",
+    "kerala",
+    "karnataka"
+
+  ];
+
+
+  if (
+    outingKeywords.some(keyword =>
+      value.includes(keyword)
+    )
+  ) {
+    return "Outing";
+  }
+
+
+  /* STREAMING */
+
+  const streamingKeywords = [
+
+    "cinezo",
+    "flickhub",
+    "arrowtv",
+    "yenime",
+    "animesalt",
+    "animeplay",
+    "watchott",
+    "nightflix",
+    "cinegram",
+    "anime",
+    "movie",
+    "movies",
+    "film",
+    "films",
+    "series",
+    "web series",
+    "ott",
+    "netflix",
+    "prime video",
+    "disney",
+    "hotstar",
+    "sony liv",
+    "zee5",
+    "jiocinema",
+    "crunchyroll"
+
+  ];
+
+
+  if (
+    streamingKeywords.some(keyword =>
+      value.includes(keyword)
+    )
+  ) {
+    return "Streaming";
+  }
+
+
+  /* PERSONALITY */
+
+  const personalityKeywords = [
+
+    "responsibility",
+    "responsible",
+    "respect",
+    "ritual",
+    "rituals",
+    "motivation",
+    "motivational",
+    "mindset",
+    "self improvement",
+    "weight loss",
+    "fitness",
+    "protein",
+    "nuts",
+    "seeds",
+    "smoothie",
+    "gym",
+    "workout",
+    "transformation",
+    "diet",
+    "nutrition",
+    "health",
+    "healthy",
+    "muscle",
+    "muscle gain",
+    "bodybuilding",
+    "exercise"
+
+  ];
+
+
+  if (
+    personalityKeywords.some(keyword =>
+      value.includes(keyword)
+    )
+  ) {
+    return "Personality";
+  }
+
+
+  /* DEFAULT */
+
+  return "Social";
 
-    const value = (
-
-        String(
-            title || ""
-        )
-
-        +
-
-        " "
-
-        +
-
-        String(
-            url || ""
-        )
-
-    ).toLowerCase();
-
-
-    /* =====================================================
-       WEDDINGS
-    ===================================================== */
-
-    const weddingKeywords = [
-
-        "wedding",
-        "weddings",
-
-        "marriage",
-        "married",
-
-        "bride",
-        "bridal",
-
-        "groom",
-        "grooms",
-
-        "shaadi",
-        "shadi",
-
-        "wedding card",
-
-        "invitation",
-        "wedding invitation",
-
-        "save the date",
-
-        "engagement",
-        "engaged",
-
-        "reception",
-
-        "haldi",
-
-        "mehendi",
-        "mehndi",
-
-        "sangeet",
-
-        "dhoti",
-        "silk dhoti",
-
-        "wedding outfit",
-
-        "wedding dress",
-
-        "wedding clothes",
-
-        "outfit",
-
-        "jiya jale",
-
-        "ಹೂ ಮುಡಿಸುವ"
-
-    ];
-
-
-    if (
-        weddingKeywords.some(
-            keyword =>
-                value.includes(
-                    keyword
-                )
-        )
-    ) {
-
-        return "Weddings";
-
-    }
-
-
-    /* =====================================================
-       WATCHES
-    ===================================================== */
-
-    const watchKeywords = [
-
-        "watch",
-        "watches",
-
-        "casio",
-
-        "sonata",
-
-        "titan",
-
-        "poze",
-
-        "smartwatch",
-
-        "smart watch",
-
-        "wrist",
-
-        "wristwatch",
-
-        "wrist watch",
-
-        "gun metal",
-
-        "chronograph",
-
-        "analog watch",
-
-        "digital watch",
-
-        "watch collection",
-
-        "watch review"
-
-    ];
-
-
-    if (
-        watchKeywords.some(
-            keyword =>
-                value.includes(
-                    keyword
-                )
-        )
-    ) {
-
-        return "Watches";
-
-    }
-
-
-    /* =====================================================
-       LEARNING
-    ===================================================== */
-
-    const learningKeywords = [
-
-        "japanese",
-
-        "japan",
-
-        "hiragana",
-
-        "katakana",
-
-        "kana",
-
-        "kanji",
-
-        "grammar",
-
-        "jlpt",
-
-        "n5",
-        "n4",
-        "n3",
-        "n2",
-        "n1",
-
-        "japanese language",
-
-        "german",
-
-        "germany",
-
-        "salesforce",
-
-        "lwc",
-
-        "lightning web component",
-
-        "lightning component",
-
-        "apex",
-
-        "java",
-
-        "programming",
-
-        "coding",
-
-        "developer",
-
-        "development",
-
-        "ethical hacker",
-
-        "ethical hacking",
-
-        "hacking",
-
-        "cyber security",
-
-        "cybersecurity",
-
-        "admin",
-
-        "learning",
-
-        "course",
-
-        "tutorial",
-
-        "study",
-
-        "studying",
-
-        "certification",
-
-        "exam",
-
-        "education",
-
-        "lesson",
-
-        "class",
-
-        "lecture",
-
-        "skill",
-
-        "skills",
-
-        "ssc cgl",
-
-        "ssc chsl"
-
-    ];
-
-
-    if (
-        learningKeywords.some(
-            keyword =>
-                value.includes(
-                    keyword
-                )
-        )
-    ) {
-
-        return "Learning";
-
-    }
-
-
-    /* =====================================================
-       OUTING
-    ===================================================== */
-
-    const outingKeywords = [
-
-        "travel",
-        "travelling",
-        "traveling",
-
-        "trip",
-        "trips",
-
-        "outing",
-
-        "vacation",
-        "holiday",
-
-        "place",
-        "places",
-
-        "tourist",
-        "tourism",
-
-        "hill",
-        "hills",
-
-        "hill station",
-
-        "beach",
-        "beaches",
-
-        "lagoon",
-
-        "reef",
-
-        "scuba",
-
-        "scuba diving",
-
-        "diving",
-
-        "waterfall",
-        "waterfalls",
-
-        "trek",
-        "trekking",
-
-        "hiking",
-
-        "camping",
-
-        "temple",
-        "temples",
-
-        "gudi",
-
-        "fort",
-        "forts",
-
-        "lake",
-        "lakes",
-
-        "river",
-        "rivers",
-
-        "island",
-        "islands",
-
-        "resort",
-        "resorts",
-
-        "mysore pak",
-
-        "honnavara",
-
-        "netrani",
-
-        "kailasagiri",
-
-        "mauritius",
-
-        "dudhsagar",
-
-        "goa",
-
-        "pondicherry",
-        "puducherry",
-
-        "coorg",
-        "kodagu",
-
-        "chikmagalur",
-
-        "wayanad",
-
-        "ooty",
-
-        "manali",
-
-        "kerala",
-
-        "karnataka"
-
-    ];
-
-
-    if (
-        outingKeywords.some(
-            keyword =>
-                value.includes(
-                    keyword
-                )
-        )
-    ) {
-
-        return "Outing";
-
-    }
-
-
-    /* =====================================================
-       STREAMING
-    ===================================================== */
-
-    const streamingKeywords = [
-
-        "cinezo",
-
-        "flickhub",
-
-        "arrowtv",
-
-        "yenime",
-
-        "animesalt",
-
-        "animeplay",
-
-        "watchott",
-
-        "nightflix",
-
-        "cinegram",
-
-        "anime",
-
-        "movie",
-        "movies",
-
-        "film",
-        "films",
-
-        "series",
-
-        "web series",
-
-        "ott",
-
-        "netflix",
-
-        "prime video",
-
-        "amazon prime",
-
-        "disney",
-
-        "hotstar",
-
-        "sony liv",
-
-        "zee5",
-
-        "jiocinema",
-
-        "crunchyroll"
-
-    ];
-
-
-    if (
-        streamingKeywords.some(
-            keyword =>
-                value.includes(
-                    keyword
-                )
-        )
-    ) {
-
-        return "Streaming";
-
-    }
-
-
-    /* =====================================================
-       PERSONALITY
-    ===================================================== */
-
-    const personalityKeywords = [
-
-        "responsibility",
-
-        "responsible",
-
-        "respect",
-
-        "ritual",
-
-        "rituals",
-
-        "motivation",
-
-        "motivational",
-
-        "mindset",
-
-        "self improvement",
-
-        "self-improvement",
-
-        "weight loss",
-
-        "fitness",
-
-        "protein",
-
-        "nuts",
-
-        "seeds",
-
-        "smoothie",
-
-        "gym",
-
-        "workout",
-
-        "workout plan",
-
-        "transformation",
-
-        "diet",
-
-        "nutrition",
-
-        "health",
-
-        "healthy",
-
-        "muscle",
-
-        "muscle gain",
-
-        "bodybuilding",
-
-        "exercise"
-
-    ];
-
-
-    if (
-        personalityKeywords.some(
-            keyword =>
-                value.includes(
-                    keyword
-                )
-        )
-    ) {
-
-        return "Personality";
-
-    }
-
-
-    return "Social";
 }
 
 
@@ -2409,281 +1644,226 @@ function detectCategory(
    ICON DETECTION
 ========================================================= */
 
-function detectIcon(
-    title,
-    url,
-    type,
-    category
-) {
+function detectIcon(title, url, type, category) {
 
-    const value = (
+  const value = (
+    String(title || "") +
+    " " +
+    String(url || "")
+  ).toLowerCase();
 
-        String(
-            title || ""
-        )
 
-        +
+  if (category === "Watches") {
+    return "⌚";
+  }
 
-        " "
 
-        +
+  if (category === "Weddings") {
+    return "💍";
+  }
 
-        String(
-            url || ""
-        )
 
-    ).toLowerCase();
+  if (
+    value.includes("japanese") ||
+    value.includes("jlpt") ||
+    value.includes("hiragana") ||
+    value.includes("katakana") ||
+    value.includes("kanji")
+  ) {
+    return "🇯🇵";
+  }
 
 
-    if (
-        category === "Watches"
-    ) {
+  if (
+    value.includes("salesforce") ||
+    value.includes("lwc") ||
+    value.includes("apex")
+  ) {
+    return "☁️";
+  }
 
-        return "⌚";
 
-    }
+  if (value.includes("java")) {
+    return "☕";
+  }
 
 
-    if (
-        category === "Weddings"
-    ) {
+  if (
+    value.includes("german") ||
+    value.includes("germany")
+  ) {
+    return "🇩🇪";
+  }
 
-        return "💍";
 
-    }
+  if (type === "gmap") {
+    return "📍";
+  }
 
 
-    if (
-        category === "Learning"
-    ) {
+  if (type === "google-drive") {
+    return "📁";
+  }
 
-        if (
 
-            value.includes(
-                "japanese"
-            )
+  if (
+    type === "youtube-playlist" ||
+    type === "youtube-short"
+  ) {
+    return "▶️";
+  }
 
-            ||
 
-            value.includes(
-                "japan"
-            )
+  if (type === "instagram") {
+    return "📸";
+  }
 
-            ||
 
-            value.includes(
-                "jlpt"
-            )
+  if (type === "myntra") {
+    return "🛍️";
+  }
 
-            ||
 
-            value.includes(
-                "kanji"
-            )
+  if (category === "Streaming") {
+    return "🎬";
+  }
 
-            ||
 
-            value.includes(
-                "hiragana"
-            )
+  if (category === "Outing") {
+    return "🗺️";
+  }
 
-            ||
 
-            value.includes(
-                "katakana"
-            )
+  if (category === "Personality") {
+    return "👤";
+  }
 
-        ) {
 
-            return "🇯🇵";
+  if (category === "Learning") {
+    return "📚";
+  }
 
-        }
 
+  return "🔗";
 
-        if (
-
-            value.includes(
-                "salesforce"
-            )
-
-            ||
-
-            value.includes(
-                "lwc"
-            )
-
-            ||
-
-            value.includes(
-                "apex"
-            )
-
-        ) {
-
-            return "☁️";
-
-        }
-
-
-        if (
-            value.includes(
-                "java"
-            )
-        ) {
-
-            return "☕";
-
-        }
-
-
-        if (
-            value.includes(
-                "german"
-            )
-        ) {
-
-            return "🇩🇪";
-
-        }
-
-
-        return "📚";
-
-    }
-
-
-    if (
-        category === "Outing"
-    ) {
-
-        return "🗺️";
-
-    }
-
-
-    if (
-        category === "Streaming"
-    ) {
-
-        return "🎬";
-
-    }
-
-
-    if (
-        category === "Personality"
-    ) {
-
-        return "👤";
-
-    }
-
-
-    switch (type) {
-
-        case "gmap":
-            return "📍";
-
-        case "google-drive":
-            return "📁";
-
-        case "youtube-playlist":
-            return "▶️";
-
-        case "youtube-short":
-            return "▶️";
-
-        case "instagram":
-            return "📸";
-
-        case "myntra":
-            return "🛍️";
-
-        default:
-            return "🔗";
-
-    }
 }
 
 
 /* =========================================================
-   MIGRATE / RECLASSIFY
+   MIGRATE / RECLASSIFY IMPORTED LINKS
 ========================================================= */
 
 function migrateLinks(data) {
 
-    return data.map(
-        item => {
+  return data.map(item => {
 
-            const title =
-                item.title ||
-                "Untitled Link";
+    const title =
+      item.title || "Untitled Link";
 
-
-            const url =
-                item.url ||
-                "";
+    const url =
+      item.url || "";
 
 
-            /*
-                Always re-detect.
+    const detectedType =
+      detectLinkType(url);
 
-                Old JSON category/type/icon
-                values are intentionally ignored.
-            */
+    const detectedCategory =
+      detectCategory(title, url);
 
-            const detectedType =
-                detectLinkType(
-                    url
-                );
-
-
-            const detectedCategory =
-                detectCategory(
-                    title,
-                    url
-                );
+    const detectedIcon =
+      detectIcon(
+        title,
+        url,
+        detectedType,
+        detectedCategory
+      );
 
 
-            const detectedIcon =
-                detectIcon(
-                    title,
-                    url,
-                    detectedType,
-                    detectedCategory
-                );
+    return {
+
+      id:
+        item.id ||
+        generateId(),
+
+      title,
+
+      url,
+
+      type:
+        detectedType,
+
+      category:
+        detectedCategory,
+
+      icon:
+        detectedIcon
+
+    };
+
+  });
+
+}
 
 
-            return {
+/* =========================================================
+   STORAGE
+========================================================= */
 
-                id:
-                    item.id ||
-                    generateId(),
+function saveLinks() {
 
-                title:
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(links)
+  );
 
-                    title,
+}
 
-                url:
 
-                    url,
+/* =========================================================
+   THEME
+========================================================= */
 
-                type:
+function applyTheme(theme) {
 
-                    detectedType,
+  const isLight =
+    theme === "light";
 
-                category:
 
-                    detectedCategory,
+  document.body.classList.toggle(
+    "light",
+    isLight
+  );
 
-                icon:
 
-                    detectedIcon
+  themeBtn.textContent =
+    isLight
+      ? "🌙 Dark"
+      : "☀️ Light";
 
-            };
 
-        }
-    );
+  localStorage.setItem(
+    THEME_KEY,
+    theme
+  );
+
+}
+
+
+function initializeTheme() {
+
+  const savedTheme =
+    localStorage.getItem(THEME_KEY);
+
+
+  if (savedTheme === "light") {
+
+    applyTheme("light");
+
+  } else {
+
+    applyTheme("dark");
+
+  }
 
 }
 
@@ -2694,161 +1874,51 @@ function migrateLinks(data) {
 
 function renderCategories() {
 
-    categoryList.innerHTML =
-        "";
+  categoryList.innerHTML =
+    categories.map(category => {
+
+      const active =
+        currentCategory === category.name
+          ? "active"
+          : "";
 
 
-    categories.forEach(
-        category => {
+      return `
 
-            const button =
-                document.createElement(
-                    "button"
-                );
+        <button
+          class="category-btn ${active}"
+          data-category="${escapeAttribute(category.name)}"
+        >
+          ${category.icon}
+          ${escapeHTML(category.name)}
+        </button>
 
+      `;
 
-            button.className =
-                "category-btn";
-
-
-            if (
-                currentCategory ===
-                category.name
-            ) {
-
-                button.classList.add(
-                    "active"
-                );
-
-            }
+    }).join("");
 
 
-            const count =
-                category.name === "All"
+  document
+    .querySelectorAll(".category-btn")
+    .forEach(button => {
 
-                    ? links.length
+      button.addEventListener(
+        "click",
+        () => {
 
-                    : links.filter(
-                        link =>
-                            link.category ===
-                            category.name
-                    ).length;
+          currentCategory =
+            button.dataset.category;
 
+          searchInput.value = "";
 
-            button.innerHTML = `
+          renderCategories();
 
-                ${category.icon}
-
-                ${escapeHTML(
-                    category.name
-                )}
-
-                <span class="category-count">
-                    ${count}
-                </span>
-
-            `;
-
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    currentCategory =
-                        category.name;
-
-
-                    renderCategories();
-
-                    renderLinks();
-
-                }
-            );
-
-
-            categoryList.appendChild(
-                button
-            );
+          renderLinks();
 
         }
-    );
+      );
 
-}
-
-
-/* =========================================================
-   FILTER
-========================================================= */
-
-function getFilteredLinks() {
-
-    const searchTerm =
-        searchInput.value
-            .trim()
-            .toLowerCase();
-
-
-    return links.filter(
-        link => {
-
-            const matchesCategory =
-
-                currentCategory ===
-                    "All"
-
-                ||
-
-                link.category ===
-                    currentCategory;
-
-
-            const matchesSearch =
-
-                !searchTerm
-
-                ||
-
-                link.title
-                    .toLowerCase()
-                    .includes(
-                        searchTerm
-                    )
-
-                ||
-
-                link.url
-                    .toLowerCase()
-                    .includes(
-                        searchTerm
-                    )
-
-                ||
-
-                link.type
-                    .toLowerCase()
-                    .includes(
-                        searchTerm
-                    )
-
-                ||
-
-                link.category
-                    .toLowerCase()
-                    .includes(
-                        searchTerm
-                    );
-
-
-            return (
-
-                matchesCategory &&
-
-                matchesSearch
-
-            );
-
-        }
-    );
+    });
 
 }
 
@@ -2859,796 +1929,650 @@ function getFilteredLinks() {
 
 function renderLinks() {
 
-    const filteredLinks =
-        getFilteredLinks();
+  const search =
+    searchInput.value
+      .trim()
+      .toLowerCase();
 
 
-    contentTitle.textContent =
-        currentCategory === "All"
+  let filtered =
+    links.filter(link => {
 
-            ? "All Links"
-
-            : currentCategory;
-
-
-    linkCount.textContent =
-
-        `${filteredLinks.length} ${
-            filteredLinks.length === 1
-                ? "link"
-                : "links"
-        }`;
+      const matchesCategory =
+        currentCategory === "All" ||
+        link.category === currentCategory;
 
 
-    linksGrid.innerHTML =
-        "";
+      const searchableText = (
+
+        (link.title || "") +
+        " " +
+        (link.url || "") +
+        " " +
+        (link.type || "") +
+        " " +
+        (link.category || "")
+
+      ).toLowerCase();
 
 
-    if (
-        filteredLinks.length === 0
-    ) {
-
-        linksGrid.innerHTML = `
-
-            <div class="empty-state">
-
-                <div class="empty-state-inner">
-
-                    <div class="empty-icon">
-                        🔗
-                    </div>
-
-                    <div class="empty-title">
-                        No links yet
-                    </div>
-
-                    <div class="empty-text">
-
-                        Click
-                        <strong>＋ Add</strong>
-                        to create your first link,
-                        or use
-                        <strong>Import</strong>
-                        to load your own JSON backup.
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        `;
-
-        return;
-    }
+      const matchesSearch =
+        !search ||
+        searchableText.includes(search);
 
 
-    filteredLinks.forEach(
-        link => {
+      return (
+        matchesCategory &&
+        matchesSearch
+      );
 
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "card";
+    });
 
 
-            card.innerHTML = `
-
-                <a
-                    class="card-link"
-                    href="${escapeAttribute(
-                        link.url
-                    )}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="${escapeAttribute(
-                        link.title
-                    )}"
-                >
-
-                    <div class="card-icon">
-
-                        ${escapeHTML(
-                            link.icon ||
-                            "🔗"
-                        )}
-
-                    </div>
+  contentTitle.textContent =
+    currentCategory === "All"
+      ? "All Links"
+      : currentCategory;
 
 
-                    <div class="card-title">
-
-                        ${escapeHTML(
-                            link.title
-                        )}
-
-                    </div>
-
-
-                    <span class="type-badge">
-
-                        ${escapeHTML(
-                            typeLabels[
-                                link.type
-                            ] ||
-                            "🔗 Other"
-                        )}
-
-                    </span>
-
-                </a>
+  linkCount.textContent =
+    `${filtered.length} ${
+      filtered.length === 1
+        ? "link"
+        : "links"
+    }`;
 
 
-                <div class="card-actions">
+  if (filtered.length === 0) {
 
-                    <button
-                        class="action-btn edit"
-                        title="Edit"
-                        data-id="${escapeAttribute(
-                            link.id
-                        )}"
-                    >
-                        ✏️
-                    </button>
+    linksGrid.innerHTML = `
 
+      <div class="empty-state">
 
-                    <button
-                        class="action-btn delete"
-                        title="Delete"
-                        data-id="${escapeAttribute(
-                            link.id
-                        )}"
-                    >
-                        🗑️
-                    </button>
+        <div class="empty-icon">
+          🔗
+        </div>
 
-                </div>
+        <div class="empty-title">
+          No links found
+        </div>
 
-            `;
+        <div class="empty-text">
+          Add a link or change your search/category.
+        </div>
 
+      </div>
 
-            const editButton =
-                card.querySelector(
-                    ".edit"
-                );
+    `;
+
+    return;
+
+  }
 
 
-            const deleteButton =
-                card.querySelector(
-                    ".delete"
-                );
+  linksGrid.innerHTML =
+    filtered.map(link => {
+
+      const safeTitle =
+        escapeHTML(link.title);
+
+      const safeUrl =
+        escapeAttribute(link.url);
+
+      const safeIcon =
+        escapeHTML(link.icon || "🔗");
+
+      const typeLabel =
+        typeLabels[link.type] ||
+        "🔗 Other";
 
 
-            editButton.addEventListener(
-                "click",
-                event => {
+      return `
 
-                    event.preventDefault();
+        <div
+          class="link-card"
+          data-id="${escapeAttribute(link.id)}"
+          title="${safeTitle}"
+        >
 
-                    event.stopPropagation();
+          <div class="link-card-icon">
+            ${safeIcon}
+          </div>
 
-                    openEditModal(
-                        link.id
-                    );
+          <div class="link-card-title">
+            ${safeTitle}
+          </div>
 
-                }
+          <div class="link-card-type">
+            ${escapeHTML(typeLabel)}
+          </div>
+
+          <div class="link-card-category">
+            ${escapeHTML(link.category)}
+          </div>
+
+
+          <div class="card-actions">
+
+            <button
+              class="card-action edit-btn"
+              data-id="${escapeAttribute(link.id)}"
+              title="Edit"
+            >
+              ✏️
+            </button>
+
+            <button
+              class="card-action delete delete-btn"
+              data-id="${escapeAttribute(link.id)}"
+              title="Delete"
+            >
+              🗑️
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+
+  /* CARD CLICK */
+
+  document
+    .querySelectorAll(".link-card")
+    .forEach(card => {
+
+      card.addEventListener(
+        "click",
+        event => {
+
+          if (
+            event.target.closest(".card-action")
+          ) {
+            return;
+          }
+
+
+          const id =
+            card.dataset.id;
+
+
+          const link =
+            links.find(item =>
+              item.id === id
             );
 
 
-            deleteButton.addEventListener(
-                "click",
-                event => {
-
-                    event.preventDefault();
-
-                    event.stopPropagation();
-
-                    deleteLink(
-                        link.id
-                    );
-
-                }
-            );
+          if (!link || !link.url) {
+            return;
+          }
 
 
-            linksGrid.appendChild(
-                card
-            );
+          window.open(
+            link.url,
+            "_blank",
+            "noopener,noreferrer"
+          );
 
         }
-    );
+      );
+
+    });
+
+
+  /* EDIT */
+
+  document
+    .querySelectorAll(".edit-btn")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+          openEditModal(
+            button.dataset.id
+          );
+
+        }
+      );
+
+    });
+
+
+  /* DELETE */
+
+  document
+    .querySelectorAll(".delete-btn")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+          deleteLink(
+            button.dataset.id
+          );
+
+        }
+      );
+
+    });
 
 }
 
 
 /* =========================================================
-   ADD MODAL
+   MODAL
 ========================================================= */
 
 function openAddModal() {
 
-    editingId =
-        null;
+  editingId = null;
+
+  modalTitle.textContent =
+    "Add Link";
+
+  linkForm.reset();
+
+  typeInput.value =
+    "website";
+
+  categoryInput.value =
+    "Social";
+
+  iconInput.value =
+    "🔗";
 
 
-    modalTitle.textContent =
-        "Add Link";
+  modalOverlay.classList.add(
+    "show"
+  );
 
 
-    linkForm.reset();
-
-
-    typeInput.value =
-        "website";
-
-
-    categoryInput.value =
-        "Social";
-
-
-    iconInput.value =
-        "🔗";
-
-
-    modalOverlay.classList.add(
-        "show"
-    );
-
-
-    setTimeout(
-        () => {
-
-            titleInput.focus();
-
-        },
-        50
-    );
+  titleInput.focus();
 
 }
 
-
-/* =========================================================
-   EDIT MODAL
-========================================================= */
 
 function openEditModal(id) {
 
-    const link =
-        links.find(
-            item =>
-                item.id === id
-        );
-
-
-    if (!link) {
-        return;
-    }
-
-
-    editingId =
-        id;
-
-
-    modalTitle.textContent =
-        "Edit Link";
-
-
-    titleInput.value =
-        link.title || "";
-
-
-    urlInput.value =
-        link.url || "";
-
-
-    typeInput.value =
-        link.type || "other";
-
-
-    categoryInput.value =
-        link.category || "Social";
-
-
-    iconInput.value =
-        link.icon || "🔗";
-
-
-    modalOverlay.classList.add(
-        "show"
+  const link =
+    links.find(item =>
+      item.id === id
     );
 
 
-    setTimeout(
-        () => {
+  if (!link) {
+    return;
+  }
 
-            titleInput.focus();
 
-        },
-        50
-    );
+  editingId = id;
+
+
+  modalTitle.textContent =
+    "Edit Link";
+
+
+  titleInput.value =
+    link.title || "";
+
+
+  urlInput.value =
+    link.url || "";
+
+
+  typeInput.value =
+    link.type || "website";
+
+
+  categoryInput.value =
+    link.category || "Social";
+
+
+  iconInput.value =
+    link.icon || "🔗";
+
+
+  modalOverlay.classList.add(
+    "show"
+  );
+
+
+  titleInput.focus();
 
 }
 
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
 
 function closeModal() {
 
-    modalOverlay.classList.remove(
-        "show"
-    );
+  modalOverlay.classList.remove(
+    "show"
+  );
 
-
-    editingId =
-        null;
-
-
-    linkForm.reset();
+  editingId = null;
 
 }
 
 
 /* =========================================================
-   AUTO DETECT URL
+   AUTO DETECTION WHILE ENTERING URL
 ========================================================= */
 
 urlInput.addEventListener(
-    "input",
-    () => {
+  "input",
+  () => {
 
-        const url =
-            urlInput.value.trim();
+    const url =
+      urlInput.value.trim();
 
-
-        if (!url) {
-            return;
-        }
+    const title =
+      titleInput.value.trim();
 
 
-        const type =
-            detectLinkType(
-                url
-            );
-
-
-        const title =
-            titleInput.value.trim();
-
-
-        const category =
-            detectCategory(
-                title,
-                url
-            );
-
-
-        const icon =
-            detectIcon(
-                title,
-                url,
-                type,
-                category
-            );
-
-
-        typeInput.value =
-            type;
-
-
-        categoryInput.value =
-            category;
-
-
-        iconInput.value =
-            icon;
-
+    if (!url) {
+      return;
     }
+
+
+    const detectedType =
+      detectLinkType(url);
+
+
+    const detectedCategory =
+      detectCategory(
+        title,
+        url
+      );
+
+
+    const detectedIcon =
+      detectIcon(
+        title,
+        url,
+        detectedType,
+        detectedCategory
+      );
+
+
+    typeInput.value =
+      detectedType;
+
+
+    categoryInput.value =
+      detectedCategory;
+
+
+    iconInput.value =
+      detectedIcon;
+
+  }
 );
 
 
 /* =========================================================
-   AUTO DETECT TITLE
+   AUTO DETECTION WHILE ENTERING TITLE
 ========================================================= */
 
 titleInput.addEventListener(
-    "input",
-    () => {
+  "input",
+  () => {
 
-        const title =
-            titleInput.value.trim();
+    const title =
+      titleInput.value.trim();
 
-
-        const url =
-            urlInput.value.trim();
-
-
-        if (
-            !title &&
-            !url
-        ) {
-
-            return;
-
-        }
+    const url =
+      urlInput.value.trim();
 
 
-        const type =
-            url
-                ? detectLinkType(
-                    url
-                )
-                : typeInput.value;
-
-
-        const category =
-            detectCategory(
-                title,
-                url
-            );
-
-
-        const icon =
-            detectIcon(
-                title,
-                url,
-                type,
-                category
-            );
-
-
-        categoryInput.value =
-            category;
-
-
-        iconInput.value =
-            icon;
-
+    if (!title && !url) {
+      return;
     }
+
+
+    const detectedCategory =
+      detectCategory(
+        title,
+        url
+      );
+
+
+    const detectedIcon =
+      detectIcon(
+        title,
+        url,
+        detectLinkType(url),
+        detectedCategory
+      );
+
+
+    categoryInput.value =
+      detectedCategory;
+
+
+    iconInput.value =
+      detectedIcon;
+
+  }
 );
 
 
 /* =========================================================
-   SAVE FORM
+   SAVE LINK
 ========================================================= */
 
 linkForm.addEventListener(
-    "submit",
-    event => {
+  "submit",
+  event => {
 
-        event.preventDefault();
-
-
-        const title =
-            titleInput.value.trim();
+    event.preventDefault();
 
 
-        const url =
-            urlInput.value.trim();
+    const title =
+      titleInput.value.trim();
+
+    const url =
+      urlInput.value.trim();
 
 
-        if (
-            !title ||
-            !url
-        ) {
-
-            alert(
-                "Please enter both title and URL."
-            );
-
-            return;
-
-        }
-
-
-        const type =
-            detectLinkType(
-                url
-            );
-
-
-        const category =
-            detectCategory(
-                title,
-                url
-            );
-
-
-        const icon =
-            iconInput.value.trim() ||
-            detectIcon(
-                title,
-                url,
-                type,
-                category
-            );
-
-
-        if (editingId) {
-
-            const index =
-                links.findIndex(
-                    link =>
-                        link.id ===
-                        editingId
-                );
-
-
-            if (
-                index !== -1
-            ) {
-
-                links[index] = {
-
-                    ...links[index],
-
-                    title,
-
-                    url,
-
-                    type,
-
-                    category,
-
-                    icon
-
-                };
-
-            }
-
-        } else {
-
-            links.push({
-
-                id:
-                    generateId(),
-
-                title,
-
-                url,
-
-                type,
-
-                category,
-
-                icon
-
-            });
-
-        }
-
-
-        saveLinks();
-
-
-        renderCategories();
-
-        renderLinks();
-
-
-        closeModal();
-
-    }
-);
-
-
-/* =========================================================
-   DELETE
-========================================================= */
-
-function deleteLink(id) {
-
-    const link =
-        links.find(
-            item =>
-                item.id === id
-        );
-
-
-    if (!link) {
-        return;
+    if (!title || !url) {
+      return;
     }
 
 
-    const confirmed =
-        confirm(
-            `Delete "${link.title}"?`
+    const type =
+      typeInput.value ||
+      detectLinkType(url);
+
+
+    const category =
+      categoryInput.value ||
+      detectCategory(
+        title,
+        url
+      );
+
+
+    const icon =
+      iconInput.value.trim() ||
+      detectIcon(
+        title,
+        url,
+        type,
+        category
+      );
+
+
+    if (editingId) {
+
+      const index =
+        links.findIndex(
+          item =>
+            item.id === editingId
         );
 
 
-    if (!confirmed) {
-        return;
+      if (index !== -1) {
+
+        links[index] = {
+
+          ...links[index],
+
+          title,
+
+          url,
+
+          type,
+
+          category,
+
+          icon
+
+        };
+
+      }
+
+    } else {
+
+      links.push({
+
+        id:
+          generateId(),
+
+        title,
+
+        url,
+
+        type,
+
+        category,
+
+        icon
+
+      });
+
     }
-
-
-    links =
-        links.filter(
-            item =>
-                item.id !== id
-        );
 
 
     saveLinks();
 
+    closeModal();
 
     renderCategories();
 
     renderLinks();
 
+  }
+);
+
+
+/* =========================================================
+   DELETE LINK
+========================================================= */
+
+function deleteLink(id) {
+
+  const link =
+    links.find(item =>
+      item.id === id
+    );
+
+
+  if (!link) {
+    return;
+  }
+
+
+  const confirmed =
+    confirm(
+      `Delete "${link.title}"?`
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  links =
+    links.filter(item =>
+      item.id !== id
+    );
+
+
+  saveLinks();
+
+  renderCategories();
+
+  renderLinks();
+
 }
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-searchInput.addEventListener(
-    "input",
-    renderLinks
-);
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-addBtn.addEventListener(
-    "click",
-    openAddModal
-);
-
-
-closeModalBtn.addEventListener(
-    "click",
-    closeModal
-);
-
-
-cancelModalBtn.addEventListener(
-    "click",
-    closeModal
-);
-
-
-/* =========================================================
-   MODAL OUTSIDE CLICK
-========================================================= */
-
-modalOverlay.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target ===
-            modalOverlay
-        ) {
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   ESCAPE
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-
-            event.key ===
-                "Escape"
-
-            &&
-
-            modalOverlay.classList.contains(
-                "show"
-            )
-
-        ) {
-
-            closeModal();
-
-        }
-
-    }
-);
 
 
 /* =========================================================
    EXPORT
 ========================================================= */
 
-exportBtn.addEventListener(
-    "click",
-    () => {
+function exportLinks() {
 
-        if (
-            links.length === 0
-        ) {
-
-            alert(
-                "There are no links to export yet."
-            );
-
-            return;
-        }
+  const data =
+    JSON.stringify(
+      links,
+      null,
+      2
+    );
 
 
-        const exportData =
-            JSON.stringify(
-                links,
-                null,
-                2
-            );
+  const blob =
+    new Blob(
+      [data],
+      {
+        type: "application/json"
+      }
+    );
 
 
-        const blob =
-            new Blob(
-                [exportData],
-                {
-                    type:
-                        "application/json"
-                }
-            );
+  const url =
+    URL.createObjectURL(blob);
 
 
-        const url =
-            URL.createObjectURL(
-                blob
-            );
+  const link =
+    document.createElement("a");
 
 
-        const anchor =
-            document.createElement(
-                "a"
-            );
+  const date =
+    new Date()
+      .toISOString()
+      .slice(0, 10);
 
 
-        const date =
-            new Date()
-                .toISOString()
-                .slice(
-                    0,
-                    10
-                );
+  link.href = url;
+
+  link.download =
+    `my-links-backup-${date}.json`;
 
 
-        anchor.href =
-            url;
+  document.body.appendChild(
+    link
+  );
 
 
-        anchor.download =
-            `my-links-backup-${date}.json`;
+  link.click();
+
+  link.remove();
 
 
-        document.body.appendChild(
-            anchor
-        );
+  URL.revokeObjectURL(url);
 
-
-        anchor.click();
-
-
-        anchor.remove();
-
-
-        URL.revokeObjectURL(
-            url
-        );
-
-    }
-);
+}
 
 
 /* =========================================================
@@ -3656,130 +2580,108 @@ exportBtn.addEventListener(
 ========================================================= */
 
 importBtn.addEventListener(
-    "click",
-    () => {
+  "click",
+  () => {
 
-        importFile.click();
+    importFile.click();
 
-    }
+  }
 );
 
 
-/* =========================================================
-   IMPORT FILE
-========================================================= */
-
 importFile.addEventListener(
-    "change",
-    event => {
+  "change",
+  event => {
 
-        const file =
-            event.target.files[0];
+    const file =
+      event.target.files[0];
 
 
-        if (!file) {
+    if (!file) {
+      return;
+    }
+
+
+    const reader =
+      new FileReader();
+
+
+    reader.onload =
+      event => {
+
+        try {
+
+          const parsed =
+            JSON.parse(
+              event.target.result
+            );
+
+
+          if (!Array.isArray(parsed)) {
+
+            alert(
+              "Invalid JSON backup format."
+            );
+
             return;
-        }
+
+          }
 
 
-        const reader =
-            new FileReader();
+          const confirmed =
+            confirm(
+              "Importing will replace your current links. Continue?"
+            );
 
 
-        reader.onload =
-            event => {
-
-                try {
-
-                    const imported =
-                        JSON.parse(
-                            event.target.result
-                        );
+          if (!confirmed) {
+            return;
+          }
 
 
-                    if (
-                        !Array.isArray(
-                            imported
-                        )
-                    ) {
-
-                        alert(
-                            "Invalid JSON file. Expected an array of links."
-                        );
-
-                        return;
-                    }
+          links =
+            migrateLinks(parsed);
 
 
-                    const confirmed =
-                        confirm(
-                            "Importing will replace the current dashboard links. Continue?"
-                        );
+          saveLinks();
 
 
-                    if (!confirmed) {
-                        return;
-                    }
+          currentCategory =
+            "All";
 
 
-                    /*
-                        Every imported link is
-                        re-categorized here.
-                    */
-
-                    links =
-                        migrateLinks(
-                            imported
-                        );
-
-
-                    saveLinks();
-
-
-                    currentCategory =
-                        "All";
-
-
-                    searchInput.value =
-                        "";
-
-
-                    renderCategories();
-
-                    renderLinks();
-
-
-                    alert(
-                        `${links.length} link(s) imported and automatically categorized.`
-                    );
-
-
-                } catch (error) {
-
-                    console.error(
-                        "Import error:",
-                        error
-                    );
-
-
-                    alert(
-                        "Could not read the JSON file."
-                    );
-
-                }
-
-            };
-
-
-        reader.readAsText(
-            file
-        );
-
-
-        importFile.value =
+          searchInput.value =
             "";
 
-    }
+
+          renderCategories();
+
+          renderLinks();
+
+
+          alert(
+            `${links.length} links imported successfully.`
+          );
+
+        } catch (error) {
+
+          alert(
+            "Could not read the JSON file."
+          );
+
+        }
+
+      };
+
+
+    reader.readAsText(file);
+
+
+    /* Allow importing the same file again */
+
+    importFile.value = "";
+
+  }
 );
 
 
@@ -3788,96 +2690,196 @@ importFile.addEventListener(
 ========================================================= */
 
 resetBtn.addEventListener(
-    "click",
-    () => {
+  "click",
+  () => {
 
-        const confirmed =
-            confirm(
-                "Reset the dashboard to an empty state? All locally saved links will be removed."
-            );
-
-
-        if (!confirmed) {
-            return;
-        }
+    const confirmed =
+      confirm(
+        "Reset all saved links? This cannot be undone."
+      );
 
 
-        links = [];
-
-
-        currentCategory =
-            "All";
-
-
-        searchInput.value =
-            "";
-
-
-        saveLinks();
-
-
-        renderCategories();
-
-        renderLinks();
-
+    if (!confirmed) {
+      return;
     }
+
+
+    links = [];
+
+    currentCategory =
+      "All";
+
+    searchInput.value =
+      "";
+
+
+    saveLinks();
+
+    renderCategories();
+
+    renderLinks();
+
+  }
 );
 
 
 /* =========================================================
-   SECURITY
+   SEARCH
 ========================================================= */
 
-function escapeHTML(value) {
+searchInput.addEventListener(
+  "input",
+  () => {
 
-    return String(
-        value
-    )
+    renderLinks();
 
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
-
-}
-
-
-function escapeAttribute(value) {
-
-    return escapeHTML(
-        value
-    )
-    .replaceAll(
-        "`",
-        "&#096;"
-    );
-
-}
+  }
+);
 
 
 /* =========================================================
-   START
+   THEME TOGGLE
 ========================================================= */
+
+themeBtn.addEventListener(
+  "click",
+  () => {
+
+    const currentTheme =
+      document.body.classList.contains("light")
+        ? "light"
+        : "dark";
+
+
+    applyTheme(
+      currentTheme === "dark"
+        ? "light"
+        : "dark"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   MODAL EVENTS
+========================================================= */
+
+addBtn.addEventListener(
+  "click",
+  openAddModal
+);
+
+
+closeModalBtn.addEventListener(
+  "click",
+  closeModal
+);
+
+
+cancelModalBtn.addEventListener(
+  "click",
+  closeModal
+);
+
+
+modalOverlay.addEventListener(
+  "click",
+  event => {
+
+    if (
+      event.target === modalOverlay
+    ) {
+      closeModal();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Escape" &&
+      modalOverlay.classList.contains("show")
+    ) {
+
+      closeModal();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+function initialize() {
+
+  /* Theme */
+
+  initializeTheme();
+
+
+  /* Links */
+
+  const stored =
+    localStorage.getItem(
+      STORAGE_KEY
+    );
+
+
+  if (stored) {
+
+    try {
+
+      const parsed =
+        JSON.parse(stored);
+
+
+      links =
+        Array.isArray(parsed)
+          ? migrateLinks(parsed)
+          : [];
+
+
+    } catch (error) {
+
+      links = [];
+
+    }
+
+  } else {
+
+    links =
+      [...defaultLinks];
+
+  }
+
+
+  saveLinks();
+
+
+  currentCategory =
+    "All";
+
+
+  renderCategories();
+
+  renderLinks();
+
+}
+
+
+/* START */
 
 initialize();
 
