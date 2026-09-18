@@ -1,0 +1,3887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🔗 My Links Dashboard</title>
+
+<style>
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f1117;
+    color: #ffffff;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+/* Hide scrollbar but keep scrolling */
+* {
+  scrollbar-width: none; /* Firefox */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Safari */
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   SIDEBAR - DESKTOP
+========================================================= */
+
+.sidebar {
+    width: 230px;
+    min-width: 230px;
+    min-height: 100vh;
+
+    background: #151821;
+    border-right: 1px solid #292e3a;
+
+    padding: 20px 14px;
+
+    display: flex;
+    flex-direction: column;
+
+    position: sticky;
+    top: 0;
+
+    height: 100vh;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    padding: 0 10px;
+}
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.category-btn {
+    width: 100%;
+
+    border: 0;
+    background: transparent;
+
+    color: #aeb4c0;
+
+    padding: 11px 12px;
+
+    border-radius: 9px;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.category-btn:hover {
+    background: #202532;
+    color: #ffffff;
+}
+
+.category-btn.active {
+    background: rgb(124, 92, 255);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.category-count {
+    float: right;
+    opacity: 0.7;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+    flex: 1;
+    min-width: 0;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+    min-height: 70px;
+
+    border-bottom: 1px solid #292e3a;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 20px;
+
+    background: #11141c;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 50;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 100px;
+}
+
+.search-box input {
+    width: 100%;
+    height: 42px;
+
+    border: 1px solid #303644;
+
+    background: #1a1e28;
+
+    color: #ffffff;
+
+    border-radius: 9px;
+
+    padding: 0 14px;
+
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: rgb(124, 92, 255);
+}
+
+
+.header-btn {
+    height: 42px;
+
+    padding: 0 14px;
+
+    border: 1px solid #303644;
+
+    border-radius: 9px;
+
+    background: #1a1e28;
+
+    color: #ffffff;
+
+    transition: 0.2s;
+
+    white-space: nowrap;
+}
+
+.header-btn:hover {
+    background: #252b38;
+}
+
+.header-btn.primary {
+    background: rgb(124, 92, 255);
+    border-color: rgb(124, 92, 255);
+}
+
+.header-btn.primary:hover {
+    background: rgb(105, 76, 225);
+}
+
+.header-btn.danger:hover {
+    background: #49252b;
+    border-color: #70323b;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content {
+    padding: 20px;
+
+    width: 100%;
+}
+
+.content-top {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.content-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.link-count {
+    color: #8f96a3;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.links-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(230px, 1fr)
+        );
+
+    gap: 14px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card {
+    position: relative;
+
+    background: #191d26;
+
+    border: 1px solid #2a303c;
+
+    border-radius: 12px;
+
+    padding: 16px;
+
+    min-height: 125px;
+
+    transition: 0.2s;
+
+    overflow: hidden;
+}
+
+.card:hover {
+    border-color: #464e5e;
+
+    transform: translateY(-1px);
+}
+
+.card-link {
+    display: block;
+
+    text-decoration: none;
+
+    color: inherit;
+
+    height: 100%;
+}
+
+.card-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #252a35;
+
+    border-radius: 10px;
+
+    font-size: 21px;
+
+    margin-bottom: 12px;
+}
+
+.card-title {
+    font-size: 15px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+    padding-right: 35px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.type-badge {
+    display: inline-block;
+
+    font-size: 11px;
+
+    color: #aeb4c0;
+
+    background: #232833;
+
+    padding: 4px 7px;
+
+    border-radius: 5px;
+}
+
+.card-actions {
+    position: absolute;
+
+    right: 9px;
+    top: 9px;
+
+    display: flex;
+
+    gap: 4px;
+
+    opacity: 0;
+
+    transition: 0.2s;
+}
+
+.card:hover .card-actions {
+    opacity: 1;
+}
+
+.action-btn {
+    width: 28px;
+    height: 28px;
+
+    border: 1px solid #353b49;
+
+    border-radius: 6px;
+
+    background: #202530;
+
+    color: #ffffff;
+
+    font-size: 13px;
+}
+
+.action-btn:hover {
+    background: #303746;
+}
+
+.action-btn.delete:hover {
+    background: #572b32;
+    border-color: #743942;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+    grid-column: 1 / -1;
+
+    min-height: 250px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: #8f96a3;
+
+    border: 1px dashed #303644;
+
+    border-radius: 12px;
+
+    background: #151821;
+}
+
+.empty-state-inner {
+    max-width: 420px;
+
+    padding: 30px;
+}
+
+.empty-icon {
+    font-size: 45px;
+
+    margin-bottom: 12px;
+}
+
+.empty-title {
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+.empty-text {
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.7);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+
+    padding: 20px;
+
+    overflow-y: auto;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal {
+    width: 100%;
+
+    max-width: 520px;
+
+    background: #191d26;
+
+    border: 1px solid #303644;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5);
+
+    overflow: hidden;
+
+    margin: auto;
+}
+
+.modal-header {
+    padding: 18px 20px;
+
+    border-bottom: 1px solid #2b303c;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.modal-title {
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #aeb4c0;
+
+    font-size: 22px;
+
+    border-radius: 6px;
+}
+
+.close-btn:hover {
+    background: #252a35;
+
+    color: #ffffff;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #c4c9d2;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    height: 42px;
+
+    border: 1px solid #343a48;
+
+    background: #12151c;
+
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    padding: 0 12px;
+
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: rgb(124, 92, 255);
+}
+
+.form-help {
+    color: #7f8795;
+
+    font-size: 11px;
+
+    margin-top: 5px;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+
+    border-top: 1px solid #2b303c;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+}
+
+.cancel-btn,
+.save-btn {
+    height: 40px;
+
+    padding: 0 16px;
+
+    border-radius: 8px;
+
+    border: 1px solid #343a48;
+}
+
+.cancel-btn {
+    background: #202530;
+
+    color: #ffffff;
+}
+
+.save-btn {
+    background: rgb(124, 92, 255);
+
+    border-color: rgb(124, 92, 255);
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 190px;
+        min-width: 190px;
+    }
+
+    .links-grid {
+        grid-template-columns:
+            repeat(
+                auto-fill,
+                minmax(200px, 1fr)
+            );
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+
+    .app {
+        display: block;
+
+        width: 100%;
+    }
+
+
+    /* ---------------------------------
+       Mobile Category Bar
+    --------------------------------- */
+
+    .sidebar {
+
+        width: 100%;
+
+        min-width: 0;
+
+        min-height: auto;
+
+        height: auto;
+
+        position: sticky;
+
+        top: 0;
+
+        z-index: 100;
+
+        padding: 10px 10px 8px;
+
+        border-right: 0;
+
+        border-bottom: 1px solid #292e3a;
+
+    }
+
+
+    .logo {
+
+        font-size: 18px;
+
+        margin-bottom: 9px;
+
+        padding: 0 4px;
+
+    }
+
+
+    .category-list {
+
+        display: flex;
+
+        flex-direction: row;
+
+        gap: 7px;
+
+        overflow-x: auto;
+
+        overflow-y: hidden;
+
+        padding-bottom: 3px;
+
+        scrollbar-width: thin;
+
+    }
+
+
+    .category-btn {
+
+        flex: 0 0 auto;
+
+        width: auto;
+
+        white-space: nowrap;
+
+        padding: 8px 11px;
+
+        font-size: 12px;
+
+        border-radius: 8px;
+
+    }
+
+
+    .category-count {
+
+        float: none;
+
+        margin-left: 4px;
+
+    }
+
+
+    /* ---------------------------------
+       Mobile Main
+    --------------------------------- */
+
+    .main {
+
+        min-height: auto;
+
+        width: 100%;
+
+    }
+
+
+    /* ---------------------------------
+       Mobile Header
+    --------------------------------- */
+
+    .header {
+
+        min-height: auto;
+
+        padding: 10px;
+
+        gap: 7px;
+
+        flex-wrap: wrap;
+
+        position: sticky;
+
+        top: 78px;
+
+        z-index: 90;
+
+    }
+
+
+    .search-box {
+
+        flex: 1 1 100%;
+
+        order: 1;
+
+    }
+
+
+    .search-box input {
+
+        height: 40px;
+
+    }
+
+
+    .header-btn {
+
+        flex: 1;
+
+        min-width: 0;
+
+        height: 38px;
+
+        padding: 0 8px;
+
+        font-size: 12px;
+
+    }
+
+
+    /* ---------------------------------
+       Mobile Content
+    --------------------------------- */
+
+    .content {
+
+        padding: 14px 10px 25px;
+
+    }
+
+
+    .content-top {
+
+        margin-bottom: 12px;
+
+    }
+
+
+    .content-title {
+
+        font-size: 18px;
+
+    }
+
+
+    .link-count {
+
+        font-size: 12px;
+
+    }
+
+
+    /* ---------------------------------
+       Mobile Grid
+    --------------------------------- */
+
+    .links-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+
+    }
+
+
+    /* ---------------------------------
+       Mobile Cards
+    --------------------------------- */
+
+    .card {
+
+        min-height: 105px;
+
+        padding: 13px;
+
+    }
+
+
+    .card-icon {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 19px;
+
+        margin-bottom: 9px;
+
+    }
+
+
+    .card-title {
+
+        font-size: 14px;
+
+    }
+
+
+    /*
+        On mobile there is no hover.
+        Always show Edit/Delete buttons.
+    */
+
+    .card-actions {
+
+        opacity: 1;
+
+        right: 8px;
+
+        top: 8px;
+
+    }
+
+
+    .action-btn {
+
+        width: 30px;
+
+        height: 30px;
+
+    }
+
+
+    /* ---------------------------------
+       Mobile Empty State
+    --------------------------------- */
+
+    .empty-state {
+
+        min-height: 220px;
+
+    }
+
+
+    /* ---------------------------------
+       Mobile Modal
+    --------------------------------- */
+
+    .modal-overlay {
+
+        padding: 10px;
+
+        align-items: flex-start;
+
+    }
+
+
+    .modal {
+
+        margin-top: 20px;
+
+        max-height: calc(100vh - 40px);
+
+        overflow-y: auto;
+
+    }
+
+
+    .modal-body {
+
+        padding: 15px;
+
+    }
+
+
+    .modal-footer {
+
+        padding: 12px 15px;
+
+        position: sticky;
+
+        bottom: 0;
+
+        background: #191d26;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .header-btn {
+
+        font-size: 11px;
+
+    }
+
+
+    .category-btn {
+
+        font-size: 11px;
+
+        padding: 7px 9px;
+
+    }
+
+
+    .content {
+
+        padding-left: 8px;
+
+        padding-right: 8px;
+
+    }
+
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            🔗 My Links
+        </div>
+
+
+        <div
+            class="category-list"
+            id="categoryList"
+        ></div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search links..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <button
+                class="header-btn primary"
+                id="addBtn"
+                title="Add Link"
+            >
+                ＋ Add
+            </button>
+
+
+            <button
+                class="header-btn"
+                id="exportBtn"
+                title="Export"
+            >
+                ⬇ Export
+            </button>
+
+
+            <button
+                class="header-btn"
+                id="importBtn"
+                title="Import"
+            >
+                ⬆ Import
+            </button>
+
+
+            <button
+                class="header-btn danger"
+                id="resetBtn"
+                title="Reset"
+            >
+                ↻ Reset
+            </button>
+
+
+            <input
+                type="file"
+                id="importFile"
+                accept=".json,application/json"
+                hidden
+            >
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <section class="content">
+
+
+            <div class="content-top">
+
+                <div>
+
+                    <div
+                        class="content-title"
+                        id="contentTitle"
+                    >
+                        All Links
+                    </div>
+
+
+                    <div
+                        class="link-count"
+                        id="linkCount"
+                    >
+                        0 links
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="links-grid"
+                id="linksGrid"
+            ></div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL
+========================================================= -->
+
+<div
+    class="modal-overlay"
+    id="modalOverlay"
+>
+
+
+    <div class="modal">
+
+
+        <div class="modal-header">
+
+            <div
+                class="modal-title"
+                id="modalTitle"
+            >
+                Add Link
+            </div>
+
+
+            <button
+                class="close-btn"
+                id="closeModalBtn"
+                title="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+            <form id="linkForm">
+
+
+                <div class="form-group">
+
+                    <label for="titleInput">
+                        Title
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="titleInput"
+                        placeholder="Example: Wedding Outfit Ideas"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="urlInput">
+                        URL
+                    </label>
+
+
+                    <input
+                        type="url"
+                        id="urlInput"
+                        placeholder="https://..."
+                        required
+                    >
+
+
+                    <div class="form-help">
+                        Link type, category and emoji are detected automatically.
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="typeInput">
+                        Link Type
+                    </label>
+
+
+                    <select id="typeInput">
+
+                        <option value="instagram">
+                            📸 Instagram Reel
+                        </option>
+
+                        <option value="youtube-short">
+                            ▶️ YouTube Short
+                        </option>
+
+                        <option value="gmap">
+                            📍 GMap Link
+                        </option>
+
+                        <option value="google-drive">
+                            📁 Google Drive
+                        </option>
+
+                        <option value="youtube-playlist">
+                            ▶️ YouTube Playlist
+                        </option>
+
+                        <option value="myntra">
+                            🛍️ Myntra
+                        </option>
+
+                        <option value="website">
+                            🌐 Website
+                        </option>
+
+                        <option value="other">
+                            🔗 Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="categoryInput">
+                        Category
+                    </label>
+
+
+                    <select id="categoryInput">
+
+                        <option value="Social">
+                            📱 Social
+                        </option>
+
+                        <option value="Streaming">
+                            🎬 Streaming
+                        </option>
+
+                        <option value="Personality">
+                            👤 Personality
+                        </option>
+
+                        <option value="Weddings">
+                            💍 Weddings
+                        </option>
+
+                        <option value="Watches">
+                            ⌚ Watches
+                        </option>
+
+                        <option value="Outing">
+                            🗺️ Outing
+                        </option>
+
+                        <option value="Learning">
+                            📚 Learning
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="iconInput">
+                        Icon / Emoji
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="iconInput"
+                        maxlength="5"
+                        placeholder="🔗"
+                    >
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="cancel-btn"
+                id="cancelModalBtn"
+                type="button"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                class="save-btn"
+                id="saveBtn"
+                type="submit"
+                form="linkForm"
+            >
+                Save Link
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+const STORAGE_KEY =
+    "myLinksDashboardData";
+
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+const categories = [
+
+    {
+        name: "All",
+        icon: "🏠"
+    },
+
+    {
+        name: "Social",
+        icon: "📱"
+    },
+
+    {
+        name: "Streaming",
+        icon: "🎬"
+    },
+
+    {
+        name: "Personality",
+        icon: "👤"
+    },
+
+    {
+        name: "Weddings",
+        icon: "💍"
+    },
+
+    {
+        name: "Watches",
+        icon: "⌚"
+    },
+
+    {
+        name: "Outing",
+        icon: "🗺️"
+    },
+
+    {
+        name: "Learning",
+        icon: "📚"
+    }
+
+];
+
+
+/* =========================================================
+   LINK TYPE LABELS
+========================================================= */
+
+const typeLabels = {
+
+    instagram:
+        "📸 Instagram Reel",
+
+    "youtube-short":
+        "▶️ YouTube Short",
+
+    gmap:
+        "📍 GMap Link",
+
+    "google-drive":
+        "📁 Google Drive",
+
+    "youtube-playlist":
+        "▶️ YouTube Playlist",
+
+    myntra:
+        "🛍️ Myntra",
+
+    website:
+        "🌐 Website",
+
+    other:
+        "🔗 Other"
+
+};
+
+
+/* =========================================================
+   PUBLIC DEFAULT DATA
+========================================================= */
+
+const defaultLinks = [];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let links = [];
+
+let currentCategory = "All";
+
+let editingId = null;
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const categoryList =
+    document.getElementById(
+        "categoryList"
+    );
+
+const linksGrid =
+    document.getElementById(
+        "linksGrid"
+    );
+
+const contentTitle =
+    document.getElementById(
+        "contentTitle"
+    );
+
+const linkCount =
+    document.getElementById(
+        "linkCount"
+    );
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+const addBtn =
+    document.getElementById(
+        "addBtn"
+    );
+
+const exportBtn =
+    document.getElementById(
+        "exportBtn"
+    );
+
+const importBtn =
+    document.getElementById(
+        "importBtn"
+    );
+
+const resetBtn =
+    document.getElementById(
+        "resetBtn"
+    );
+
+const importFile =
+    document.getElementById(
+        "importFile"
+    );
+
+const modalOverlay =
+    document.getElementById(
+        "modalOverlay"
+    );
+
+const modalTitle =
+    document.getElementById(
+        "modalTitle"
+    );
+
+const closeModalBtn =
+    document.getElementById(
+        "closeModalBtn"
+    );
+
+const cancelModalBtn =
+    document.getElementById(
+        "cancelModalBtn"
+    );
+
+const linkForm =
+    document.getElementById(
+        "linkForm"
+    );
+
+const titleInput =
+    document.getElementById(
+        "titleInput"
+    );
+
+const urlInput =
+    document.getElementById(
+        "urlInput"
+    );
+
+const typeInput =
+    document.getElementById(
+        "typeInput"
+    );
+
+const categoryInput =
+    document.getElementById(
+        "categoryInput"
+    );
+
+const iconInput =
+    document.getElementById(
+        "iconInput"
+    );
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+function initialize() {
+
+    const stored =
+        localStorage.getItem(
+            STORAGE_KEY
+        );
+
+
+    if (stored) {
+
+        try {
+
+            const parsed =
+                JSON.parse(
+                    stored
+                );
+
+
+            if (
+                Array.isArray(
+                    parsed
+                )
+            ) {
+
+                links =
+                    migrateLinks(
+                        parsed
+                    );
+
+            } else {
+
+                links = [];
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Could not load saved links:",
+                error
+            );
+
+            links = [];
+
+        }
+
+    } else {
+
+        links =
+            [...defaultLinks];
+
+    }
+
+
+    saveLinks();
+
+    renderCategories();
+
+    renderLinks();
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveLinks() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(
+            links
+        )
+    );
+
+}
+
+
+/* =========================================================
+   GENERATE ID
+========================================================= */
+
+function generateId() {
+
+    return (
+
+        Date.now()
+            .toString(36)
+
+        +
+
+        Math.random()
+            .toString(36)
+            .substring(2, 8)
+
+    );
+
+}
+
+
+/* =========================================================
+   LINK TYPE DETECTION
+========================================================= */
+
+function detectLinkType(url) {
+
+    const value =
+        String(
+            url || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    if (
+
+        value.includes(
+            "instagram.com/reel"
+        )
+
+        ||
+
+        value.includes(
+            "instagram.com/reels"
+        )
+
+    ) {
+
+        return "instagram";
+
+    }
+
+
+    if (
+
+        value.includes(
+            "youtube.com/shorts/"
+        )
+
+        ||
+
+        value.includes(
+            "youtu.be/shorts/"
+        )
+
+    ) {
+
+        return "youtube-short";
+
+    }
+
+
+    if (
+
+        value.includes(
+            "maps.app.goo.gl"
+        )
+
+        ||
+
+        value.includes(
+            "goo.gl/maps"
+        )
+
+        ||
+
+        value.includes(
+            "google.com/maps"
+        )
+
+    ) {
+
+        return "gmap";
+
+    }
+
+
+    if (
+
+        value.includes(
+            "drive.google.com"
+        )
+
+        ||
+
+        value.includes(
+            "docs.google.com"
+        )
+
+    ) {
+
+        return "google-drive";
+
+    }
+
+
+    if (
+
+        value.includes(
+            "youtube.com/playlist"
+        )
+
+        ||
+
+        (
+            value.includes(
+                "youtube.com/watch"
+            )
+
+            &&
+
+            value.includes(
+                "list="
+            )
+        )
+
+    ) {
+
+        return "youtube-playlist";
+
+    }
+
+
+    if (
+        value.includes(
+            "myntra.com"
+        )
+    ) {
+
+        return "myntra";
+
+    }
+
+
+    if (
+
+        value.startsWith(
+            "http://"
+        )
+
+        ||
+
+        value.startsWith(
+            "https://"
+        )
+
+    ) {
+
+        return "website";
+
+    }
+
+
+    return "other";
+}
+
+
+/* =========================================================
+   CATEGORY DETECTION
+========================================================= */
+
+function detectCategory(
+    title,
+    url
+) {
+
+    const value = (
+
+        String(
+            title || ""
+        )
+
+        +
+
+        " "
+
+        +
+
+        String(
+            url || ""
+        )
+
+    ).toLowerCase();
+
+
+    /* =====================================================
+       WEDDINGS
+    ===================================================== */
+
+    const weddingKeywords = [
+
+        "wedding",
+        "weddings",
+
+        "marriage",
+        "married",
+
+        "bride",
+        "bridal",
+
+        "groom",
+        "grooms",
+
+        "shaadi",
+        "shadi",
+
+        "wedding card",
+
+        "invitation",
+        "wedding invitation",
+
+        "save the date",
+
+        "engagement",
+        "engaged",
+
+        "reception",
+
+        "haldi",
+
+        "mehendi",
+        "mehndi",
+
+        "sangeet",
+
+        "dhoti",
+        "silk dhoti",
+
+        "wedding outfit",
+
+        "wedding dress",
+
+        "wedding clothes",
+
+        "outfit",
+
+        "jiya jale",
+
+        "ಹೂ ಮುಡಿಸುವ"
+
+    ];
+
+
+    if (
+        weddingKeywords.some(
+            keyword =>
+                value.includes(
+                    keyword
+                )
+        )
+    ) {
+
+        return "Weddings";
+
+    }
+
+
+    /* =====================================================
+       WATCHES
+    ===================================================== */
+
+    const watchKeywords = [
+
+        "watch",
+        "watches",
+
+        "casio",
+
+        "sonata",
+
+        "titan",
+
+        "poze",
+
+        "smartwatch",
+
+        "smart watch",
+
+        "wrist",
+
+        "wristwatch",
+
+        "wrist watch",
+
+        "gun metal",
+
+        "chronograph",
+
+        "analog watch",
+
+        "digital watch",
+
+        "watch collection",
+
+        "watch review"
+
+    ];
+
+
+    if (
+        watchKeywords.some(
+            keyword =>
+                value.includes(
+                    keyword
+                )
+        )
+    ) {
+
+        return "Watches";
+
+    }
+
+
+    /* =====================================================
+       LEARNING
+    ===================================================== */
+
+    const learningKeywords = [
+
+        "japanese",
+
+        "japan",
+
+        "hiragana",
+
+        "katakana",
+
+        "kana",
+
+        "kanji",
+
+        "grammar",
+
+        "jlpt",
+
+        "n5",
+        "n4",
+        "n3",
+        "n2",
+        "n1",
+
+        "japanese language",
+
+        "german",
+
+        "germany",
+
+        "salesforce",
+
+        "lwc",
+
+        "lightning web component",
+
+        "lightning component",
+
+        "apex",
+
+        "java",
+
+        "programming",
+
+        "coding",
+
+        "developer",
+
+        "development",
+
+        "ethical hacker",
+
+        "ethical hacking",
+
+        "hacking",
+
+        "cyber security",
+
+        "cybersecurity",
+
+        "admin",
+
+        "learning",
+
+        "course",
+
+        "tutorial",
+
+        "study",
+
+        "studying",
+
+        "certification",
+
+        "exam",
+
+        "education",
+
+        "lesson",
+
+        "class",
+
+        "lecture",
+
+        "skill",
+
+        "skills",
+
+        "ssc cgl",
+
+        "ssc chsl"
+
+    ];
+
+
+    if (
+        learningKeywords.some(
+            keyword =>
+                value.includes(
+                    keyword
+                )
+        )
+    ) {
+
+        return "Learning";
+
+    }
+
+
+    /* =====================================================
+       OUTING
+    ===================================================== */
+
+    const outingKeywords = [
+
+        "travel",
+        "travelling",
+        "traveling",
+
+        "trip",
+        "trips",
+
+        "outing",
+
+        "vacation",
+        "holiday",
+
+        "place",
+        "places",
+
+        "tourist",
+        "tourism",
+
+        "hill",
+        "hills",
+
+        "hill station",
+
+        "beach",
+        "beaches",
+
+        "lagoon",
+
+        "reef",
+
+        "scuba",
+
+        "scuba diving",
+
+        "diving",
+
+        "waterfall",
+        "waterfalls",
+
+        "trek",
+        "trekking",
+
+        "hiking",
+
+        "camping",
+
+        "temple",
+        "temples",
+
+        "gudi",
+
+        "fort",
+        "forts",
+
+        "lake",
+        "lakes",
+
+        "river",
+        "rivers",
+
+        "island",
+        "islands",
+
+        "resort",
+        "resorts",
+
+        "mysore pak",
+
+        "honnavara",
+
+        "netrani",
+
+        "kailasagiri",
+
+        "mauritius",
+
+        "dudhsagar",
+
+        "goa",
+
+        "pondicherry",
+        "puducherry",
+
+        "coorg",
+        "kodagu",
+
+        "chikmagalur",
+
+        "wayanad",
+
+        "ooty",
+
+        "manali",
+
+        "kerala",
+
+        "karnataka"
+
+    ];
+
+
+    if (
+        outingKeywords.some(
+            keyword =>
+                value.includes(
+                    keyword
+                )
+        )
+    ) {
+
+        return "Outing";
+
+    }
+
+
+    /* =====================================================
+       STREAMING
+    ===================================================== */
+
+    const streamingKeywords = [
+
+        "cinezo",
+
+        "flickhub",
+
+        "arrowtv",
+
+        "yenime",
+
+        "animesalt",
+
+        "animeplay",
+
+        "watchott",
+
+        "nightflix",
+
+        "cinegram",
+
+        "anime",
+
+        "movie",
+        "movies",
+
+        "film",
+        "films",
+
+        "series",
+
+        "web series",
+
+        "ott",
+
+        "netflix",
+
+        "prime video",
+
+        "amazon prime",
+
+        "disney",
+
+        "hotstar",
+
+        "sony liv",
+
+        "zee5",
+
+        "jiocinema",
+
+        "crunchyroll"
+
+    ];
+
+
+    if (
+        streamingKeywords.some(
+            keyword =>
+                value.includes(
+                    keyword
+                )
+        )
+    ) {
+
+        return "Streaming";
+
+    }
+
+
+    /* =====================================================
+       PERSONALITY
+    ===================================================== */
+
+    const personalityKeywords = [
+
+        "responsibility",
+
+        "responsible",
+
+        "respect",
+
+        "ritual",
+
+        "rituals",
+
+        "motivation",
+
+        "motivational",
+
+        "mindset",
+
+        "self improvement",
+
+        "self-improvement",
+
+        "weight loss",
+
+        "fitness",
+
+        "protein",
+
+        "nuts",
+
+        "seeds",
+
+        "smoothie",
+
+        "gym",
+
+        "workout",
+
+        "workout plan",
+
+        "transformation",
+
+        "diet",
+
+        "nutrition",
+
+        "health",
+
+        "healthy",
+
+        "muscle",
+
+        "muscle gain",
+
+        "bodybuilding",
+
+        "exercise"
+
+    ];
+
+
+    if (
+        personalityKeywords.some(
+            keyword =>
+                value.includes(
+                    keyword
+                )
+        )
+    ) {
+
+        return "Personality";
+
+    }
+
+
+    return "Social";
+}
+
+
+/* =========================================================
+   ICON DETECTION
+========================================================= */
+
+function detectIcon(
+    title,
+    url,
+    type,
+    category
+) {
+
+    const value = (
+
+        String(
+            title || ""
+        )
+
+        +
+
+        " "
+
+        +
+
+        String(
+            url || ""
+        )
+
+    ).toLowerCase();
+
+
+    if (
+        category === "Watches"
+    ) {
+
+        return "⌚";
+
+    }
+
+
+    if (
+        category === "Weddings"
+    ) {
+
+        return "💍";
+
+    }
+
+
+    if (
+        category === "Learning"
+    ) {
+
+        if (
+
+            value.includes(
+                "japanese"
+            )
+
+            ||
+
+            value.includes(
+                "japan"
+            )
+
+            ||
+
+            value.includes(
+                "jlpt"
+            )
+
+            ||
+
+            value.includes(
+                "kanji"
+            )
+
+            ||
+
+            value.includes(
+                "hiragana"
+            )
+
+            ||
+
+            value.includes(
+                "katakana"
+            )
+
+        ) {
+
+            return "🇯🇵";
+
+        }
+
+
+        if (
+
+            value.includes(
+                "salesforce"
+            )
+
+            ||
+
+            value.includes(
+                "lwc"
+            )
+
+            ||
+
+            value.includes(
+                "apex"
+            )
+
+        ) {
+
+            return "☁️";
+
+        }
+
+
+        if (
+            value.includes(
+                "java"
+            )
+        ) {
+
+            return "☕";
+
+        }
+
+
+        if (
+            value.includes(
+                "german"
+            )
+        ) {
+
+            return "🇩🇪";
+
+        }
+
+
+        return "📚";
+
+    }
+
+
+    if (
+        category === "Outing"
+    ) {
+
+        return "🗺️";
+
+    }
+
+
+    if (
+        category === "Streaming"
+    ) {
+
+        return "🎬";
+
+    }
+
+
+    if (
+        category === "Personality"
+    ) {
+
+        return "👤";
+
+    }
+
+
+    switch (type) {
+
+        case "gmap":
+            return "📍";
+
+        case "google-drive":
+            return "📁";
+
+        case "youtube-playlist":
+            return "▶️";
+
+        case "youtube-short":
+            return "▶️";
+
+        case "instagram":
+            return "📸";
+
+        case "myntra":
+            return "🛍️";
+
+        default:
+            return "🔗";
+
+    }
+}
+
+
+/* =========================================================
+   MIGRATE / RECLASSIFY
+========================================================= */
+
+function migrateLinks(data) {
+
+    return data.map(
+        item => {
+
+            const title =
+                item.title ||
+                "Untitled Link";
+
+
+            const url =
+                item.url ||
+                "";
+
+
+            /*
+                Always re-detect.
+
+                Old JSON category/type/icon
+                values are intentionally ignored.
+            */
+
+            const detectedType =
+                detectLinkType(
+                    url
+                );
+
+
+            const detectedCategory =
+                detectCategory(
+                    title,
+                    url
+                );
+
+
+            const detectedIcon =
+                detectIcon(
+                    title,
+                    url,
+                    detectedType,
+                    detectedCategory
+                );
+
+
+            return {
+
+                id:
+                    item.id ||
+                    generateId(),
+
+                title:
+
+                    title,
+
+                url:
+
+                    url,
+
+                type:
+
+                    detectedType,
+
+                category:
+
+                    detectedCategory,
+
+                icon:
+
+                    detectedIcon
+
+            };
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RENDER CATEGORIES
+========================================================= */
+
+function renderCategories() {
+
+    categoryList.innerHTML =
+        "";
+
+
+    categories.forEach(
+        category => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "category-btn";
+
+
+            if (
+                currentCategory ===
+                category.name
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            const count =
+                category.name === "All"
+
+                    ? links.length
+
+                    : links.filter(
+                        link =>
+                            link.category ===
+                            category.name
+                    ).length;
+
+
+            button.innerHTML = `
+
+                ${category.icon}
+
+                ${escapeHTML(
+                    category.name
+                )}
+
+                <span class="category-count">
+                    ${count}
+                </span>
+
+            `;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    currentCategory =
+                        category.name;
+
+
+                    renderCategories();
+
+                    renderLinks();
+
+                }
+            );
+
+
+            categoryList.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function getFilteredLinks() {
+
+    const searchTerm =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    return links.filter(
+        link => {
+
+            const matchesCategory =
+
+                currentCategory ===
+                    "All"
+
+                ||
+
+                link.category ===
+                    currentCategory;
+
+
+            const matchesSearch =
+
+                !searchTerm
+
+                ||
+
+                link.title
+                    .toLowerCase()
+                    .includes(
+                        searchTerm
+                    )
+
+                ||
+
+                link.url
+                    .toLowerCase()
+                    .includes(
+                        searchTerm
+                    )
+
+                ||
+
+                link.type
+                    .toLowerCase()
+                    .includes(
+                        searchTerm
+                    )
+
+                ||
+
+                link.category
+                    .toLowerCase()
+                    .includes(
+                        searchTerm
+                    );
+
+
+            return (
+
+                matchesCategory &&
+
+                matchesSearch
+
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RENDER LINKS
+========================================================= */
+
+function renderLinks() {
+
+    const filteredLinks =
+        getFilteredLinks();
+
+
+    contentTitle.textContent =
+        currentCategory === "All"
+
+            ? "All Links"
+
+            : currentCategory;
+
+
+    linkCount.textContent =
+
+        `${filteredLinks.length} ${
+            filteredLinks.length === 1
+                ? "link"
+                : "links"
+        }`;
+
+
+    linksGrid.innerHTML =
+        "";
+
+
+    if (
+        filteredLinks.length === 0
+    ) {
+
+        linksGrid.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-state-inner">
+
+                    <div class="empty-icon">
+                        🔗
+                    </div>
+
+                    <div class="empty-title">
+                        No links yet
+                    </div>
+
+                    <div class="empty-text">
+
+                        Click
+                        <strong>＋ Add</strong>
+                        to create your first link,
+                        or use
+                        <strong>Import</strong>
+                        to load your own JSON backup.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    filteredLinks.forEach(
+        link => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "card";
+
+
+            card.innerHTML = `
+
+                <a
+                    class="card-link"
+                    href="${escapeAttribute(
+                        link.url
+                    )}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="${escapeAttribute(
+                        link.title
+                    )}"
+                >
+
+                    <div class="card-icon">
+
+                        ${escapeHTML(
+                            link.icon ||
+                            "🔗"
+                        )}
+
+                    </div>
+
+
+                    <div class="card-title">
+
+                        ${escapeHTML(
+                            link.title
+                        )}
+
+                    </div>
+
+
+                    <span class="type-badge">
+
+                        ${escapeHTML(
+                            typeLabels[
+                                link.type
+                            ] ||
+                            "🔗 Other"
+                        )}
+
+                    </span>
+
+                </a>
+
+
+                <div class="card-actions">
+
+                    <button
+                        class="action-btn edit"
+                        title="Edit"
+                        data-id="${escapeAttribute(
+                            link.id
+                        )}"
+                    >
+                        ✏️
+                    </button>
+
+
+                    <button
+                        class="action-btn delete"
+                        title="Delete"
+                        data-id="${escapeAttribute(
+                            link.id
+                        )}"
+                    >
+                        🗑️
+                    </button>
+
+                </div>
+
+            `;
+
+
+            const editButton =
+                card.querySelector(
+                    ".edit"
+                );
+
+
+            const deleteButton =
+                card.querySelector(
+                    ".delete"
+                );
+
+
+            editButton.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+                    openEditModal(
+                        link.id
+                    );
+
+                }
+            );
+
+
+            deleteButton.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+                    deleteLink(
+                        link.id
+                    );
+
+                }
+            );
+
+
+            linksGrid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ADD MODAL
+========================================================= */
+
+function openAddModal() {
+
+    editingId =
+        null;
+
+
+    modalTitle.textContent =
+        "Add Link";
+
+
+    linkForm.reset();
+
+
+    typeInput.value =
+        "website";
+
+
+    categoryInput.value =
+        "Social";
+
+
+    iconInput.value =
+        "🔗";
+
+
+    modalOverlay.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            titleInput.focus();
+
+        },
+        50
+    );
+
+}
+
+
+/* =========================================================
+   EDIT MODAL
+========================================================= */
+
+function openEditModal(id) {
+
+    const link =
+        links.find(
+            item =>
+                item.id === id
+        );
+
+
+    if (!link) {
+        return;
+    }
+
+
+    editingId =
+        id;
+
+
+    modalTitle.textContent =
+        "Edit Link";
+
+
+    titleInput.value =
+        link.title || "";
+
+
+    urlInput.value =
+        link.url || "";
+
+
+    typeInput.value =
+        link.type || "other";
+
+
+    categoryInput.value =
+        link.category || "Social";
+
+
+    iconInput.value =
+        link.icon || "🔗";
+
+
+    modalOverlay.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            titleInput.focus();
+
+        },
+        50
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    modalOverlay.classList.remove(
+        "show"
+    );
+
+
+    editingId =
+        null;
+
+
+    linkForm.reset();
+
+}
+
+
+/* =========================================================
+   AUTO DETECT URL
+========================================================= */
+
+urlInput.addEventListener(
+    "input",
+    () => {
+
+        const url =
+            urlInput.value.trim();
+
+
+        if (!url) {
+            return;
+        }
+
+
+        const type =
+            detectLinkType(
+                url
+            );
+
+
+        const title =
+            titleInput.value.trim();
+
+
+        const category =
+            detectCategory(
+                title,
+                url
+            );
+
+
+        const icon =
+            detectIcon(
+                title,
+                url,
+                type,
+                category
+            );
+
+
+        typeInput.value =
+            type;
+
+
+        categoryInput.value =
+            category;
+
+
+        iconInput.value =
+            icon;
+
+    }
+);
+
+
+/* =========================================================
+   AUTO DETECT TITLE
+========================================================= */
+
+titleInput.addEventListener(
+    "input",
+    () => {
+
+        const title =
+            titleInput.value.trim();
+
+
+        const url =
+            urlInput.value.trim();
+
+
+        if (
+            !title &&
+            !url
+        ) {
+
+            return;
+
+        }
+
+
+        const type =
+            url
+                ? detectLinkType(
+                    url
+                )
+                : typeInput.value;
+
+
+        const category =
+            detectCategory(
+                title,
+                url
+            );
+
+
+        const icon =
+            detectIcon(
+                title,
+                url,
+                type,
+                category
+            );
+
+
+        categoryInput.value =
+            category;
+
+
+        iconInput.value =
+            icon;
+
+    }
+);
+
+
+/* =========================================================
+   SAVE FORM
+========================================================= */
+
+linkForm.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+
+        const title =
+            titleInput.value.trim();
+
+
+        const url =
+            urlInput.value.trim();
+
+
+        if (
+            !title ||
+            !url
+        ) {
+
+            alert(
+                "Please enter both title and URL."
+            );
+
+            return;
+
+        }
+
+
+        const type =
+            detectLinkType(
+                url
+            );
+
+
+        const category =
+            detectCategory(
+                title,
+                url
+            );
+
+
+        const icon =
+            iconInput.value.trim() ||
+            detectIcon(
+                title,
+                url,
+                type,
+                category
+            );
+
+
+        if (editingId) {
+
+            const index =
+                links.findIndex(
+                    link =>
+                        link.id ===
+                        editingId
+                );
+
+
+            if (
+                index !== -1
+            ) {
+
+                links[index] = {
+
+                    ...links[index],
+
+                    title,
+
+                    url,
+
+                    type,
+
+                    category,
+
+                    icon
+
+                };
+
+            }
+
+        } else {
+
+            links.push({
+
+                id:
+                    generateId(),
+
+                title,
+
+                url,
+
+                type,
+
+                category,
+
+                icon
+
+            });
+
+        }
+
+
+        saveLinks();
+
+
+        renderCategories();
+
+        renderLinks();
+
+
+        closeModal();
+
+    }
+);
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+function deleteLink(id) {
+
+    const link =
+        links.find(
+            item =>
+                item.id === id
+        );
+
+
+    if (!link) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Delete "${link.title}"?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    links =
+        links.filter(
+            item =>
+                item.id !== id
+        );
+
+
+    saveLinks();
+
+
+    renderCategories();
+
+    renderLinks();
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    renderLinks
+);
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+addBtn.addEventListener(
+    "click",
+    openAddModal
+);
+
+
+closeModalBtn.addEventListener(
+    "click",
+    closeModal
+);
+
+
+cancelModalBtn.addEventListener(
+    "click",
+    closeModal
+);
+
+
+/* =========================================================
+   MODAL OUTSIDE CLICK
+========================================================= */
+
+modalOverlay.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            modalOverlay
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+
+            event.key ===
+                "Escape"
+
+            &&
+
+            modalOverlay.classList.contains(
+                "show"
+            )
+
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   EXPORT
+========================================================= */
+
+exportBtn.addEventListener(
+    "click",
+    () => {
+
+        if (
+            links.length === 0
+        ) {
+
+            alert(
+                "There are no links to export yet."
+            );
+
+            return;
+        }
+
+
+        const exportData =
+            JSON.stringify(
+                links,
+                null,
+                2
+            );
+
+
+        const blob =
+            new Blob(
+                [exportData],
+                {
+                    type:
+                        "application/json"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const anchor =
+            document.createElement(
+                "a"
+            );
+
+
+        const date =
+            new Date()
+                .toISOString()
+                .slice(
+                    0,
+                    10
+                );
+
+
+        anchor.href =
+            url;
+
+
+        anchor.download =
+            `my-links-backup-${date}.json`;
+
+
+        document.body.appendChild(
+            anchor
+        );
+
+
+        anchor.click();
+
+
+        anchor.remove();
+
+
+        URL.revokeObjectURL(
+            url
+        );
+
+    }
+);
+
+
+/* =========================================================
+   IMPORT
+========================================================= */
+
+importBtn.addEventListener(
+    "click",
+    () => {
+
+        importFile.click();
+
+    }
+);
+
+
+/* =========================================================
+   IMPORT FILE
+========================================================= */
+
+importFile.addEventListener(
+    "change",
+    event => {
+
+        const file =
+            event.target.files[0];
+
+
+        if (!file) {
+            return;
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            event => {
+
+                try {
+
+                    const imported =
+                        JSON.parse(
+                            event.target.result
+                        );
+
+
+                    if (
+                        !Array.isArray(
+                            imported
+                        )
+                    ) {
+
+                        alert(
+                            "Invalid JSON file. Expected an array of links."
+                        );
+
+                        return;
+                    }
+
+
+                    const confirmed =
+                        confirm(
+                            "Importing will replace the current dashboard links. Continue?"
+                        );
+
+
+                    if (!confirmed) {
+                        return;
+                    }
+
+
+                    /*
+                        Every imported link is
+                        re-categorized here.
+                    */
+
+                    links =
+                        migrateLinks(
+                            imported
+                        );
+
+
+                    saveLinks();
+
+
+                    currentCategory =
+                        "All";
+
+
+                    searchInput.value =
+                        "";
+
+
+                    renderCategories();
+
+                    renderLinks();
+
+
+                    alert(
+                        `${links.length} link(s) imported and automatically categorized.`
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Import error:",
+                        error
+                    );
+
+
+                    alert(
+                        "Could not read the JSON file."
+                    );
+
+                }
+
+            };
+
+
+        reader.readAsText(
+            file
+        );
+
+
+        importFile.value =
+            "";
+
+    }
+);
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+resetBtn.addEventListener(
+    "click",
+    () => {
+
+        const confirmed =
+            confirm(
+                "Reset the dashboard to an empty state? All locally saved links will be removed."
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        links = [];
+
+
+        currentCategory =
+            "All";
+
+
+        searchInput.value =
+            "";
+
+
+        saveLinks();
+
+
+        renderCategories();
+
+        renderLinks();
+
+    }
+);
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(
+        value
+    )
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHTML(
+        value
+    )
+    .replaceAll(
+        "`",
+        "&#096;"
+    );
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+initialize();
+
+</script>
+
+</body>
+</html>
