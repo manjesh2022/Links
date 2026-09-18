@@ -31,7 +31,7 @@ A simple, clean, and mobile-friendly personal links dashboard for organizing and
 
 ## 🌐 Live Demo
 
-[🚀 [View Live Demo](#)](https://manjesh2022.github.io/Links/)
+https://manjesh2022.github.io/Links
 
 > Replace `#` with your GitHub Pages URL after hosting the project.
 
