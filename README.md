@@ -33,7 +33,6 @@ A simple, clean, and mobile-friendly personal links dashboard for organizing and
 
 https://manjesh2022.github.io/Links
 
-> Replace `#` with your GitHub Pages URL after hosting the project.
 
 ## 📦 What's Inside?
 
